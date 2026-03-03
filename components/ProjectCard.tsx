@@ -6,7 +6,7 @@ import ProjectModal from "./ProjectModal";
 
 function formatDates(dates: string): string {
   return dates
-    .replace("– Present", "–Now")
+    .replace("– Present", " – Now")
     .replace("Aug ", "")
     .replace("Sep ", "");
 }
@@ -54,7 +54,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="font-mono text-sm text-violet-400 hover:text-violet-300 transition-colors mt-3 inline-flex items-center gap-1"
+            className="font-mono text-sm text-violet-400 hover:text-violet-300 hover:border-violet-400/60 transition-colors mt-3 inline-flex items-center gap-1 border border-violet-500/30 rounded px-2 py-0.5"
           >
             {project.linkLabel || "View Project"} <span>↗</span>
           </a>

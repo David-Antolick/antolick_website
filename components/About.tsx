@@ -28,32 +28,45 @@ export default function About() {
             >
               ClimbSpeed
             </a>
-            {" "}— production RAG for aviation
+            {" "}&mdash; production RAG for aviation
           </span>
 
           <span className="font-mono text-sm text-violet-400 text-right">
             Education
           </span>
           <span className="text-base text-slate-300">
-            M.S. Computational Biomedicine, Pitt · B.S. Computational Biology,
-            RPI
+            M.S. Computational Biomedicine, Pitt &middot; B.S. Computational
+            Biology, RPI
           </span>
         </div>
 
         <div className="space-y-4 text-base leading-relaxed text-slate-300">
           <p>
-            I build AI systems that ship to production and solve real problems —
-            multi-agent chatbots for regulated manufacturing at J&amp;J, a
-            production RAG platform that helps student pilots pass their FAA
-            knowledge tests, and bioinformatics pipelines for academic research.
+            I started chasing the supermassive &mdash; astronomy books, local
+            society meetings, the whole childhood dream of spaceflight. That
+            shifted to the microscopic in high school when I discovered
+            genetics and became set on aging research. Then a friend taught me
+            Python, and something clicked that never un-clicked. Computational
+            biology became my way to do both: code and science. During my
+            master&apos;s, I got my first taste of AI, hosted a model on my own
+            GPU, and the focus shifted for good. I finished the degree,
+            forewent a PhD, and started building.
           </p>
           <p>
             I treat engineering as an iterative discovery process. I start by
             building a system that is observable and testable, then use
             measurement to guide simplification and optimization. My goal is
-            always the smallest architecture that reliably solves the problem —
-            complexity is acceptable during exploration, but it should earn its
-            place through measurable impact.
+            always the smallest architecture that reliably solves the
+            problem &mdash; complexity is acceptable during exploration, but it
+            should earn its place through measurable impact.
+          </p>
+          <p>
+            What keeps me going is the full loop: independent research, a new
+            idea or technique, building it, measuring it, iterating until it
+            ships. I&apos;m as comfortable owning a system end-to-end as I am
+            digging into a single component &mdash; from data pipelines and
+            retrieval systems to agent frameworks and the frontends that serve
+            them.
           </p>
         </div>
       </div>
