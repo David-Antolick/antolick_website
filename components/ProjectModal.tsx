@@ -32,7 +32,7 @@ export default function ProjectModal({
         <div className="flex justify-between items-start gap-4">
           <div>
             <h3 className="text-2xl font-bold text-white">{project.title}</h3>
-            <p className="font-mono text-xs text-slate-500 mt-1">
+            <p className="font-mono text-sm text-slate-400 mt-1">
               {project.role} · {project.dates}
             </p>
           </div>
@@ -60,7 +60,7 @@ export default function ProjectModal({
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="font-mono text-[10px] px-2 py-1 bg-violet-500/15 text-violet-300 rounded"
+              className="font-mono text-xs px-2 py-1 bg-violet-500/15 text-violet-300 rounded"
             >
               {tag}
             </span>

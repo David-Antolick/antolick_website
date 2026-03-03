@@ -25,10 +25,10 @@ export default function Hero() {
         </h1>
 
         <div className="mt-6 space-y-1">
-          <p className="font-mono text-xs md:text-sm tracking-[0.2em] uppercase text-violet-400/70">
+          <p className="font-mono text-sm md:text-base tracking-[0.2em] uppercase text-violet-400">
             Classification: AI/ML Engineer
           </p>
-          <p className="font-mono text-xs md:text-sm tracking-[0.2em] uppercase text-violet-400/50">
+          <p className="font-mono text-sm md:text-base tracking-[0.2em] uppercase text-violet-400/80">
             Spectral Type: Full-Stack · Measurement-Driven
           </p>
         </div>
@@ -44,11 +44,11 @@ export default function Hero() {
                   ? undefined
                   : "noopener noreferrer"
               }
-              className="font-mono text-sm text-slate-500 hover:text-violet-300 transition-colors"
+              className="font-mono text-base text-slate-400 hover:text-violet-300 transition-colors"
             >
               {link.label}
               {!link.href.startsWith("mailto") && (
-                <span className="ml-1 text-violet-400/50">↗</span>
+                <span className="ml-1 text-violet-400">↗</span>
               )}
             </a>
           ))}

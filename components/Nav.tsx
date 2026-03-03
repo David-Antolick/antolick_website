@@ -19,13 +19,13 @@ export default function Nav() {
           {NAV_LINKS.map((link, i) => (
             <span key={link.href} className="flex items-center gap-4 md:gap-6">
               {i > 0 && (
-                <span className="text-[#1e2140]" aria-hidden="true">
+                <span className="text-slate-600" aria-hidden="true">
                   ·
                 </span>
               )}
               <a
                 href={link.href}
-                className="font-mono text-xs tracking-widest uppercase text-slate-500 hover:text-violet-400 transition-colors"
+                className="font-mono text-sm tracking-widest uppercase text-slate-400 hover:text-violet-400 transition-colors"
               >
                 {link.label}
               </a>

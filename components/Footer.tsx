@@ -28,7 +28,7 @@ export default function Footer() {
         <div className="text-center">
           <a
             href="mailto:david@antolick.ai"
-            className="font-mono text-sm text-slate-300 hover:text-violet-300 transition-colors"
+            className="font-mono text-lg text-slate-300 hover:text-violet-300 transition-colors"
           >
             david@antolick.ai
           </a>
@@ -37,7 +37,7 @@ export default function Footer() {
             {LINKS.map((link, i) => (
               <span key={link.href} className="flex items-center gap-4">
                 {i > 0 && (
-                  <span className="text-[#1e2140]" aria-hidden="true">
+                  <span className="text-slate-600" aria-hidden="true">
                     ·
                   </span>
                 )}
@@ -45,18 +45,18 @@ export default function Footer() {
                   href={link.href}
                   target={link.external ? "_blank" : undefined}
                   rel={link.external ? "noopener noreferrer" : undefined}
-                  className="font-mono text-xs text-slate-500 hover:text-violet-300 transition-colors"
+                  className="font-mono text-sm text-slate-400 hover:text-violet-300 transition-colors"
                 >
                   {link.label}
                   {link.external && (
-                    <span className="ml-1 text-violet-400/50">↗</span>
+                    <span className="ml-1 text-violet-400">↗</span>
                   )}
                 </a>
               </span>
             ))}
           </div>
 
-          <p className="font-mono text-[10px] text-slate-600 mt-12">
+          <p className="font-mono text-xs text-slate-500 mt-12">
             &copy; {new Date().getFullYear()} David Antolick
           </p>
         </div>

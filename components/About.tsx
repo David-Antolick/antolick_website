@@ -19,15 +19,15 @@ export default function About() {
         <div className="space-y-3 mb-10">
           {KEY_FACTS.map((fact) => (
             <div key={fact.label} className="flex flex-col md:flex-row md:gap-4">
-              <span className="font-mono text-xs tracking-wider uppercase text-violet-400/60 md:w-28 shrink-0">
+              <span className="font-mono text-sm tracking-wider uppercase text-violet-400 md:w-32 shrink-0">
                 {fact.label}:
               </span>
-              <span className="text-sm text-slate-300">{fact.value}</span>
+              <span className="text-base text-slate-300">{fact.value}</span>
             </div>
           ))}
         </div>
 
-        <div className="space-y-4 text-base leading-relaxed text-slate-400">
+        <div className="space-y-4 text-base leading-relaxed text-slate-300">
           <p>
             I build AI systems that ship to production and solve real problems.
             At J&amp;J, I design multi-agent chatbots and data pipelines for
