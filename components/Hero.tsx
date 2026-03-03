@@ -27,10 +27,6 @@ export default function Hero() {
       </div>
 
       <div className="max-w-3xl text-center relative z-10">
-        <p className="font-mono text-sm tracking-[0.3em] uppercase text-violet-400/60 mb-6">
-          Ad Astra
-        </p>
-
         <h1 className="text-5xl md:text-8xl font-bold tracking-tight bg-gradient-to-r from-violet-400 via-purple-300 to-violet-400 bg-clip-text text-transparent">
           David Antolick
         </h1>
@@ -44,6 +40,10 @@ export default function Hero() {
             evaluation infrastructure.
           </p>
         </div>
+
+        <p className="italic text-sm tracking-[0.15em] text-violet-300/50 mt-6">
+          Ad Astra
+        </p>
 
         <div className="flex justify-center gap-8 mt-12">
           {SOCIAL_LINKS.map((link) => (

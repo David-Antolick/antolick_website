@@ -20,10 +20,6 @@ export default function Footer() {
   return (
     <footer id="contact" className="py-20 px-4">
       <div className="max-w-3xl mx-auto text-center">
-        <p className="italic text-2xl text-violet-300/80 mb-8">
-          Ad Astra
-        </p>
-
         <hr className="separator mb-10" />
 
         <a
