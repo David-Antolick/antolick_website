@@ -1,13 +1,36 @@
+const KEY_FACTS = [
+  { label: "Current", value: "AI & Platform Engineer — Johnson & Johnson" },
+  { label: "Independent", value: "ClimbSpeed — Production RAG for Aviation" },
+  {
+    label: "Education",
+    value: "M.S. Computational Biomedicine, Pitt · B.S. Computational Biology, RPI",
+  },
+];
+
 export default function About() {
   return (
     <section id="about" className="py-20 px-4">
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8 text-white">About</h2>
-        <div className="space-y-4 text-lg leading-relaxed text-slate-300">
+        <h2 className="font-mono text-sm tracking-widest uppercase text-violet-400 mb-2">
+          ▸ About
+        </h2>
+        <hr className="separator mb-10" />
+
+        <div className="space-y-3 mb-10">
+          {KEY_FACTS.map((fact) => (
+            <div key={fact.label} className="flex flex-col md:flex-row md:gap-4">
+              <span className="font-mono text-xs tracking-wider uppercase text-violet-400/60 md:w-28 shrink-0">
+                {fact.label}:
+              </span>
+              <span className="text-sm text-slate-300">{fact.value}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="space-y-4 text-base leading-relaxed text-slate-400">
           <p>
             I build AI systems that ship to production and solve real problems.
-            Currently I&apos;m an AI and Platform Engineer at Johnson &amp;
-            Johnson, where I design multi-agent chatbots and data pipelines for
+            At J&amp;J, I design multi-agent chatbots and data pipelines for
             CAR-T cell therapy manufacturing. Independently, I built and launched
             ClimbSpeed, a production RAG platform that helps student pilots
             prepare for their FAA knowledge tests.
@@ -20,13 +43,6 @@ export default function About() {
             correctness across 230 benchmarked questions. At J&amp;J, it means
             PySpark pipelines that normalize 17 heterogeneous datasets and
             chatbots that safely query regulated manufacturing data.
-          </p>
-          <p>
-            I hold an M.S. in Computational Biomedicine and Biotechnology from
-            the University of Pittsburgh and a B.S. in Computational Biology from
-            Rensselaer Polytechnic Institute. My background spans protein
-            language models, molecular dynamics, distributed GPU training, and
-            full-stack development with React, Next.js, FastAPI, and PostgreSQL.
           </p>
         </div>
       </div>

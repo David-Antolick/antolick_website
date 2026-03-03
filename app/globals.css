@@ -41,3 +41,26 @@ body::before {
   pointer-events: none;
   z-index: -1;
 }
+
+/* Section separator */
+.separator {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(139, 92, 246, 0.3), transparent);
+  margin: 0;
+}
+
+/* Dark scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0d1a;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e2140;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2e3160;
+}
