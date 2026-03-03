@@ -18,41 +18,39 @@ export default function ProjectCard({ project }: { project: Project }) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="w-full text-left group py-6 border-b border-[#1e2140] last:border-b-0 cursor-pointer transition-colors hover:bg-violet-500/[0.03]"
+        className="w-full text-left group p-5 rounded-lg border border-[#1e2140] bg-[#0d1025]/30 hover:border-violet-500/40 hover:bg-[#0d1025]/60 hover:shadow-[0_0_30px_rgba(139,92,246,0.08)] transition-all cursor-pointer"
       >
-        <div className="grid grid-cols-1 md:grid-cols-[7rem_1fr] gap-1 md:gap-6">
-          {/* Date column */}
-          <span className="font-mono text-sm text-violet-400/80 md:text-right md:pt-1">
+        <div className="flex items-baseline justify-between gap-4 mb-2">
+          <div className="flex items-baseline gap-3">
+            <h3 className="text-lg font-semibold text-white group-hover:text-violet-300 transition-colors">
+              {project.title}
+            </h3>
+            {project.link && (
+              <span className="text-violet-400 text-base">↗</span>
+            )}
+          </div>
+          <span className="font-mono text-sm text-violet-400/80 shrink-0">
             {formatDates(project.dates)}
           </span>
+        </div>
 
-          {/* Content column */}
-          <div>
-            <div className="flex items-baseline gap-2">
-              <h3 className="text-lg font-semibold text-white group-hover:text-violet-300 transition-colors">
-                {project.title}
-              </h3>
-              {project.link && (
-                <span className="text-violet-400 text-base">↗</span>
-              )}
-            </div>
-            <p className="text-sm font-mono text-slate-400 mt-0.5">
-              {project.role}
-            </p>
-            <p className="text-base text-slate-300 mt-2 leading-relaxed">
-              {project.summary}
-            </p>
-            <div className="flex flex-wrap gap-x-2 gap-y-1 mt-3">
-              {project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="font-mono text-xs text-violet-300/80"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
+        <p className="text-sm font-mono text-slate-400">
+          {project.role}
+        </p>
+
+        <p className="text-base text-slate-300 mt-3 leading-relaxed">
+          {project.summary}
+        </p>
+
+        <div className="flex flex-wrap gap-2 mt-4">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="font-mono text-xs px-2 py-0.5 rounded bg-violet-500/10 text-violet-300/80"
+            >
+              {tag}
+            </span>
+          ))}
         </div>
       </button>
       {isOpen && (

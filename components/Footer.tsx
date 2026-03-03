@@ -19,47 +19,46 @@ const LINKS = [
 export default function Footer() {
   return (
     <footer id="contact" className="py-20 px-4">
-      <div className="max-w-3xl mx-auto">
-        <h2 className="font-mono text-sm tracking-widest uppercase text-violet-400 mb-2">
-          ▸ Signal
-        </h2>
+      <div className="max-w-3xl mx-auto text-center">
+        <p className="italic text-2xl text-violet-300/80 mb-8">
+          Ad Astra
+        </p>
+
         <hr className="separator mb-10" />
 
-        <div className="text-center">
-          <a
-            href="mailto:david@antolick.ai"
-            className="font-mono text-lg text-slate-300 hover:text-violet-300 transition-colors"
-          >
-            david@antolick.ai
-          </a>
+        <a
+          href="mailto:david@antolick.ai"
+          className="font-mono text-lg text-slate-300 hover:text-violet-300 transition-colors"
+        >
+          david@antolick.ai
+        </a>
 
-          <div className="flex justify-center items-center gap-4 mt-6">
-            {LINKS.map((link, i) => (
-              <span key={link.href} className="flex items-center gap-4">
-                {i > 0 && (
-                  <span className="text-slate-600" aria-hidden="true">
-                    ·
-                  </span>
+        <div className="flex justify-center items-center gap-4 mt-6">
+          {LINKS.map((link, i) => (
+            <span key={link.href} className="flex items-center gap-4">
+              {i > 0 && (
+                <span className="text-slate-600" aria-hidden="true">
+                  ·
+                </span>
+              )}
+              <a
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+                className="font-mono text-sm text-slate-400 hover:text-violet-300 transition-colors"
+              >
+                {link.label}
+                {link.external && (
+                  <span className="ml-1 text-violet-400">↗</span>
                 )}
-                <a
-                  href={link.href}
-                  target={link.external ? "_blank" : undefined}
-                  rel={link.external ? "noopener noreferrer" : undefined}
-                  className="font-mono text-sm text-slate-400 hover:text-violet-300 transition-colors"
-                >
-                  {link.label}
-                  {link.external && (
-                    <span className="ml-1 text-violet-400">↗</span>
-                  )}
-                </a>
-              </span>
-            ))}
-          </div>
-
-          <p className="font-mono text-xs text-slate-500 mt-12">
-            &copy; {new Date().getFullYear()} David Antolick
-          </p>
+              </a>
+            </span>
+          ))}
         </div>
+
+        <p className="font-mono text-xs text-slate-500 mt-12">
+          &copy; {new Date().getFullYear()} David Antolick
+        </p>
       </div>
     </footer>
   );
