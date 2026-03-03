@@ -26,6 +26,9 @@ export default function ProjectModal({
     <dialog
       ref={dialogRef}
       onClose={onClose}
+      onClick={(e) => {
+        if (e.target === dialogRef.current) onClose();
+      }}
       className="m-auto max-w-2xl w-[calc(100%-2rem)] rounded-lg p-0 bg-[#12152a] border border-[#1e2140] text-slate-200 backdrop:bg-black/70"
     >
       <div className="p-8 max-h-[80vh] overflow-y-auto">

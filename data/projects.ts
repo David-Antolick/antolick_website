@@ -35,17 +35,17 @@ export const projects: Project[] = [
       {
         title: "Hybrid Retrieval",
         content:
-          "Aviation content is dense with exact regulatory references (CFR 91.155, VOR, METAR). Semantic search handles paraphrased questions well but misses exact acronyms that BM25 catches directly. Adding BM25 with 3x weight in Reciprocal Rank Fusion was the single biggest retrieval quality improvement. RRF merges rank positions — not raw scores — sidestepping the calibration problem between cosine similarity and TF-IDF scales entirely.",
+          "Aviation content is dense with exact regulatory references (CFR 91.155, VOR, METAR). Semantic search handles paraphrased questions well but misses exact acronyms that BM25 catches directly. Adding BM25 with 2x weight in Reciprocal Rank Fusion was the single biggest retrieval quality improvement. RRF merges rank positions — not raw scores — sidestepping the calibration problem between cosine similarity and TF-IDF scales entirely.",
       },
       {
         title: "Deterministic Compute Tools",
         content:
-          "The alpha audit found three categories of systematic LLM failure: wind triangle math, FAA calendar month conventions, and multi-step regulatory chains. More prompting doesn't fix arithmetic — a calculator does. 9 aviation math functions + 7 FAA deadline functions, all running in a restricted Python sandbox with 75 unit tests covering every audit failure case.",
+          "The alpha audit surfaced two categories where LLMs consistently fail: wind triangle math (groundspeed, crosswind components, density altitude) and FAA calendar month conventions for inspection deadlines. More prompting doesn't fix arithmetic — a calculator does. An alpha user group confirmed these gaps, and the fix was straightforward: 9 aviation math functions + 7 FAA deadline functions, all running in a restricted Python sandbox with 75 unit tests covering every audit failure case.",
       },
       {
         title: "Measured Results",
         content:
-          "4.86/5.0 correctness, 99.6% pass rate, 100% citation compliance across 230 benchmarked questions. P50 latency 33s, P95 63s. Streaming reduced time-to-first-token by 48%. Every architectural decision has a before/after measurement — round-based search limits alone cut P95 from 118s to 63s while improving quality from 4.73 to 4.82.",
+          "4.86/5.0 correctness, 99.6% pass rate, 100% citation compliance across 230 benchmarked questions. Streaming reduced time-to-first-token by 48%, and every architectural decision has a before/after measurement — round-based search limits alone improved quality from 4.73 to 4.82 while cutting end-to-end latency nearly in half.",
       },
     ],
   },
@@ -61,22 +61,22 @@ export const projects: Project[] = [
       {
         title: "Manufacturing Data Pipeline",
         content:
-          "Takes four heterogeneous data sources — genealogy (material lineage), quality (eLIMS release data), process (USP/DSP manufacturing parameters across 17 parquet datasets from two sites), and a ground-truth overview — and produces cohesive JSON files powering an internal Hugo portal plus Delta Lake tables backing the chatbot's SQL interface. Iterative DFS with memoization builds the full recursive input tree for every material in the genealogy graph.",
+          "Unifies four heterogeneous data sources — material lineage, quality release data, manufacturing process parameters across multiple parquet datasets, and a ground-truth overview — into cohesive outputs powering both an internal portal and Delta Lake tables backing a chatbot's SQL interface. Iterative DFS with memoization builds the full recursive input tree for every material in the genealogy graph.",
       },
       {
         title: "Multi-Agent Chatbot",
         content:
-          "Built on J&J's internal Flowwise/AMP platform: Claude 3.5 Sonnet routing agent with a custom JavaScript SQL executor. SELECT-only validation with auto LIMIT 1000 prevents runaway queries across 7 queryable tables + 52 ML model metric tables. Natural language to SQL over regulated manufacturing data — the chatbot safely queries production lentivirus batch records.",
+          "Claude-powered routing agent with a custom SQL executor. SELECT-only validation with automatic row limits prevents runaway queries across manufacturing and ML model metric tables. Natural language to SQL over regulated manufacturing data — the chatbot safely queries production batch records while enforcing read-only access controls.",
       },
       {
-        title: "CrispML Visualization Pipeline",
+        title: "ML Visualization Pipeline",
         content:
-          "~3,920-line pipeline consuming predictive ML model outputs across 52 iterations, 6 rounds, 14 CQA outcomes, and 7 model types. Generates interactive radar charts, scatter-regression plots, and fishbone diagrams. Batched Spark operations and S3 path caching reduced jobs from 28+ to 2 per iteration. Includes a unified column resolver handling naming inconsistencies across rounds.",
+          "Large-scale PySpark pipeline consuming predictive ML model outputs across dozens of iterations, multiple rounds, and several model types. Generates interactive radar charts, scatter-regression plots, and fishbone diagrams. Batched Spark operations and S3 path caching reduced jobs by over 90% per iteration. Includes a unified column resolver handling naming inconsistencies across data rounds.",
       },
       {
         title: "Risk Management & Evaluation",
         content:
-          "Tri-agent chatbot-as-form system (Intake → Assessment → Wrapup) replacing traditional risk intake forms with AI-guided interview flow. 57-record risk register RAG for calibration, CEI statement builder, 5x5 heatmap scoring. Separate evaluation harness benchmarks chatbot quality across 5 dimensions with parallel execution and automated 6-chart reports.",
+          "Multi-agent chatbot-as-form system replacing traditional risk intake forms with AI-guided interview flow. RAG-calibrated risk scoring with automated heatmap generation. Separate evaluation harness benchmarks chatbot quality across 5 dimensions with parallel execution and automated reporting.",
       },
     ],
   },
@@ -88,6 +88,8 @@ export const projects: Project[] = [
     summary:
       "Fully local streaming voice assistant with sub-second perceived latency for hands-free desktop control. Not a demo — a shipped, installable, configurable tool.",
     tags: ["Python", "Whisper", "FastAPI", "CUDA", "Silero VAD", "asyncio"],
+    link: "https://github.com/David-Antolick/REX_voice_assistant",
+    linkLabel: "GitHub",
     sections: [
       {
         title: "The Differentiator",
@@ -95,14 +97,19 @@ export const projects: Project[] = [
           "Most voice assistant tutorials transcribe after the user stops speaking, have no latency awareness, and aren't packaged or configurable. REX's low-latency mode transcribes partial audio buffers periodically and checks partial transcripts for safe early command matches — executing immediately and clearing the buffer. This reduces perceived latency significantly while consciously controlling the precision/speed tradeoff.",
       },
       {
-        title: "Architecture",
+        title: "Why These Tools",
         content:
-          "All local. No cloud calls. No LLM inference loops. Audio input at 16kHz → Silero VAD for utterance segmentation → faster-whisper/CTranslate2 transcription → regex-based intent matching → command handler execution. Two modes: standard (VAD end-of-speech, high precision) and low-latency (early intent detection on partials, faster response).",
+          "Every choice optimizes for local-first speed. Silero VAD over WebRTC VAD for better utterance boundary detection. faster-whisper with CTranslate2 over stock Whisper for 4x inference speedup. Regex routing over an intent classifier because command sets are finite and deterministic matching eliminates false positives. No LLM inference loops — avoids hallucination, latency, and cloud dependency entirely.",
+      },
+      {
+        title: "Runs on a Laptop",
+        content:
+          "The entire pipeline — VAD, transcription, intent matching, command execution — runs on consumer hardware with no cloud calls. CUDA acceleration is optional, not required. Explicit DLL path handling for Windows ensures cuDNN/cuBLAS discoverability without manual environment setup. Packaged as an installable CLI tool with layered config (defaults → user overrides → env vars) and keyring-based secret storage.",
       },
       {
         title: "Real System Integrations",
         content:
-          "Spotify (full OAuth flow), YouTube Music Desktop (companion API), SteelSeries GG Moments (hotkey simulation for game clip capture). Layered configuration system (defaults → user overrides → environment vars) with keyring-based secret storage. FastAPI metrics dashboard with WebSocket streaming for latency and match-rate tracking. Packaged as an installable CLI tool with Windows CUDA/cuDNN path handling.",
+          "Spotify (full OAuth flow), YouTube Music Desktop (companion API), SteelSeries GG Moments (hotkey simulation for game clip capture). FastAPI metrics dashboard with WebSocket streaming for latency and match-rate tracking. Two operating modes: standard (VAD end-of-speech, high precision) and low-latency (early intent detection on partials, faster response).",
       },
     ],
   },
@@ -114,6 +121,8 @@ export const projects: Project[] = [
     summary:
       "Bioinformatics pipeline for intron retention analysis in U2OS cells treated with TNF-α, processing ~300K rows across experimental timepoints.",
     tags: ["Python", "Pandas", "Biopython", "Ensembl API", "Docker"],
+    link: "https://github.com/David-Antolick/intron-retention-analysis",
+    linkLabel: "GitHub",
     sections: [
       {
         title: "The Pipeline",
@@ -121,9 +130,14 @@ export const projects: Project[] = [
           "Consumes IRFinder results and adds biological interpretation. Excel → pickle serialization (~50x load speedup over ~300K rows/sheet) → QC filtering → Ensembl enrichment via batch REST API + BioMart → intron extraction with strand-aware correction → translation and frame analysis → NMD prediction. Four experimental timepoints: CTRL, 1HR, 2HR, 4HR.",
       },
       {
+        title: "Data Engineering at Scale",
+        content:
+          "~300K rows per experimental condition across three replicates required real ETL thinking. Pickle-based caching eliminates redundant Excel parsing. Batch Ensembl REST API calls with rate limiting and error handling keep enrichment stable over thousands of gene lookups. Multi-replicate consensus filtering (NaN only if all three replicates fail QC) preserves data while maintaining rigor. Outer-join merge strategy consolidates cross-condition results into a single analyzable dataset.",
+      },
+      {
         title: "NMD Prediction",
         content:
-          "Predicts nonsense-mediated decay susceptibility using exon junction complex distance rules: ≥30 amino acids to intron end, ≥55 amino acids to next exon junction. Reconstructs intron-retained transcripts, identifies premature termination codons, and classifies coding impact. Output is a multi-sheet Excel workbook with sequence data, classifications, and NMD predictions ready for the lab.",
+          "Predicts nonsense-mediated decay susceptibility using exon junction complex distance rules: ≥30 amino acids to intron end, ≥55 amino acids to next exon junction. Reconstructs intron-retained transcripts with strand-aware coordinate conversion, identifies premature termination codons, and classifies coding impact. Output is a multi-sheet Excel workbook with sequence data, classifications, and NMD predictions ready for the lab.",
       },
     ],
   },
@@ -135,6 +149,8 @@ export const projects: Project[] = [
     summary:
       "Drug-kinase binding prediction, molecular generation, scalable microscopy classification, and molecular dynamics across four graduate projects.",
     tags: ["PyTorch", "ESM-2", "XGBoost", "DDP", "TorchScript", "OpenMM"],
+    link: "https://github.com/David-Antolick/IDG-DREAM-Drug-Kinase-Binding-Prediction-Challenge",
+    linkLabel: "GitHub (Drug-Kinase)",
     sections: [
       {
         title: "Drug-Kinase Binding Prediction",
