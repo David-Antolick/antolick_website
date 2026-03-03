@@ -54,9 +54,9 @@ export default function ProjectCard({ project }: { project: Project }) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="font-mono text-sm text-violet-400 hover:text-violet-300 hover:border-violet-400/60 transition-colors mt-3 inline-flex items-center gap-1 border border-violet-500/30 rounded px-2 py-0.5"
+            className="font-mono text-sm text-white bg-violet-600/20 hover:bg-violet-600/40 border border-violet-500/40 hover:border-violet-400 transition-all mt-4 inline-flex items-center gap-1.5 rounded-md px-3 py-1.5"
           >
-            {project.linkLabel || "View Project"} <span>↗</span>
+            {project.linkLabel || "View Project"} <span className="text-violet-300">↗</span>
           </a>
         )}
       </button>
