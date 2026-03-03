@@ -17,7 +17,9 @@ export default function Projects() {
             <div
               key={project.id}
               className={
-                isOdd && i === projects.length - 1 ? "md:col-span-2" : ""
+                isOdd && i === projects.length - 1
+                  ? "md:col-span-2 md:max-w-[calc(50%-0.5rem)] md:mx-auto"
+                  : ""
               }
             >
               <ProjectCard project={project} />

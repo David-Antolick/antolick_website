@@ -41,7 +41,7 @@ export default function Hero() {
           </p>
         </div>
 
-        <p className="italic text-sm tracking-[0.15em] text-violet-300/50 mt-6">
+        <p className="italic text-sm tracking-[0.15em] text-violet-300/60 mt-6">
           Ad Astra
         </p>
 

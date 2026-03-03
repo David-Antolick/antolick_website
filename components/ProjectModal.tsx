@@ -26,7 +26,7 @@ export default function ProjectModal({
     <dialog
       ref={dialogRef}
       onClose={onClose}
-      className="max-w-2xl w-full rounded-lg p-0 bg-[#12152a] border border-[#1e2140] text-slate-200 backdrop:bg-black/70"
+      className="m-auto max-w-2xl w-[calc(100%-2rem)] rounded-lg p-0 bg-[#12152a] border border-[#1e2140] text-slate-200 backdrop:bg-black/70"
     >
       <div className="p-8 max-h-[80vh] overflow-y-auto">
         <div className="flex justify-between items-start gap-4">
@@ -67,16 +67,18 @@ export default function ProjectModal({
           ))}
         </div>
 
-        <ul className="mt-6 space-y-3">
-          {project.details.map((detail, i) => (
-            <li
-              key={i}
-              className="text-sm leading-relaxed text-slate-300 pl-4 border-l-2 border-violet-500/30"
-            >
-              {detail}
-            </li>
+        <div className="mt-8 space-y-6">
+          {project.sections.map((section) => (
+            <div key={section.title}>
+              <h4 className="font-mono text-sm font-semibold tracking-wide text-violet-400 mb-2">
+                {section.title}
+              </h4>
+              <p className="text-base leading-relaxed text-slate-300">
+                {section.content}
+              </p>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </dialog>
   );

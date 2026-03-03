@@ -18,7 +18,7 @@ export default function ProjectCard({ project }: { project: Project }) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="w-full text-left group p-5 rounded-lg border border-[#1e2140] bg-[#0d1025]/30 hover:border-violet-500/40 hover:bg-[#0d1025]/60 hover:shadow-[0_0_30px_rgba(139,92,246,0.08)] transition-all cursor-pointer"
+        className="w-full h-full text-left group p-5 rounded-lg border border-[#1e2140] bg-[#0d1025]/30 hover:border-violet-500/40 hover:bg-[#0d1025]/60 hover:shadow-[0_0_30px_rgba(139,92,246,0.08)] transition-all cursor-pointer flex flex-col"
       >
         <div className="flex items-baseline justify-between gap-4 mb-2">
           <div className="flex items-baseline gap-3">
@@ -29,7 +29,7 @@ export default function ProjectCard({ project }: { project: Project }) {
               <span className="text-violet-400 text-base">↗</span>
             )}
           </div>
-          <span className="font-mono text-sm text-violet-400/80 shrink-0">
+          <span className="font-mono text-sm text-violet-400 shrink-0">
             {formatDates(project.dates)}
           </span>
         </div>
@@ -42,11 +42,11 @@ export default function ProjectCard({ project }: { project: Project }) {
           {project.summary}
         </p>
 
-        <div className="flex flex-wrap gap-2 mt-4">
+        <div className="flex flex-wrap gap-2 mt-auto pt-4">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="font-mono text-xs px-2 py-0.5 rounded bg-violet-500/10 text-violet-300/80"
+              className="font-mono text-xs px-2 py-0.5 rounded bg-violet-500/10 text-violet-300"
             >
               {tag}
             </span>
