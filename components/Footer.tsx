@@ -1,12 +1,12 @@
 export default function Footer() {
   return (
-    <footer id="contact" className="py-12 px-4 border-t border-gray-200">
+    <footer id="contact" className="py-12 px-4 border-t border-[#1e2140]">
       <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
+        <h2 className="text-2xl font-bold mb-4 text-white">Get in Touch</h2>
         <p>
           <a
             href="mailto:david@antolick.ai"
-            className="text-gray-600 hover:text-gray-900 transition-colors"
+            className="text-slate-400 hover:text-violet-300 transition-colors"
           >
             david@antolick.ai
           </a>
@@ -16,7 +16,7 @@ export default function Footer() {
             href="https://github.com/David-Antolick"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-900 transition-colors"
+            className="text-slate-400 hover:text-violet-300 transition-colors"
           >
             GitHub
           </a>
@@ -24,12 +24,12 @@ export default function Footer() {
             href="https://linkedin.com/in/david-antolick"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-900 transition-colors"
+            className="text-slate-400 hover:text-violet-300 transition-colors"
           >
             LinkedIn
           </a>
         </div>
-        <p className="text-sm text-gray-400 mt-8">
+        <p className="text-sm text-slate-500 mt-8">
           &copy; {new Date().getFullYear()} David Antolick
         </p>
       </div>

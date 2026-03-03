@@ -12,9 +12,9 @@ export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-gray-200">
+    <nav className="sticky top-0 z-50 bg-[#0b0d1a]/80 backdrop-blur border-b border-[#1e2140]">
       <div className="max-w-5xl mx-auto px-4 flex items-center justify-between h-16">
-        <a href="#hero" className="font-bold text-lg">
+        <a href="#hero" className="font-bold text-lg hover:text-violet-400 transition-colors">
           David Antolick
         </a>
 
@@ -24,7 +24,7 @@ export default function Nav() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-gray-600 hover:text-gray-900 transition-colors"
+                className="text-slate-400 hover:text-violet-400 transition-colors"
               >
                 {link.label}
               </a>
@@ -34,7 +34,7 @@ export default function Nav() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2"
+          className="md:hidden p-2 text-slate-400"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
@@ -65,12 +65,12 @@ export default function Nav() {
 
       {/* Mobile dropdown */}
       {mobileOpen && (
-        <ul className="md:hidden px-4 pb-4 border-t border-gray-100">
+        <ul className="md:hidden px-4 pb-4 border-t border-[#1e2140] bg-[#0b0d1a]/95">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="block py-2 text-gray-600 hover:text-gray-900"
+                className="block py-2 text-slate-400 hover:text-violet-400"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}

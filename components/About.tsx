@@ -2,8 +2,8 @@ export default function About() {
   return (
     <section id="about" className="py-20 px-4">
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8">About</h2>
-        <div className="space-y-4 text-lg leading-relaxed text-gray-700">
+        <h2 className="text-3xl font-bold mb-8 text-white">About</h2>
+        <div className="space-y-4 text-lg leading-relaxed text-slate-300">
           <p>
             I build AI systems that ship to production and solve real problems.
             Currently I&apos;m an AI and Platform Engineer at Johnson &amp;
