@@ -60,7 +60,16 @@ export default function Footer() {
           ))}
         </div>
 
-        <p className="font-mono text-xs text-slate-500 mt-12">
+        <a
+          href="https://github.com/David-Antolick/antolick_website"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block font-mono text-xs text-slate-600 hover:text-violet-400 transition-colors mt-10"
+        >
+          view source &rarr;
+        </a>
+
+        <p className="font-mono text-xs text-slate-500 mt-3">
           &copy; {new Date().getFullYear()} David Antolick
         </p>
       </div>

@@ -8,6 +8,10 @@ const SOCIAL_LINKS = [
     href: "https://linkedin.com/in/david-antolick",
   },
   {
+    label: "Resume",
+    href: "/resume.pdf",
+  },
+  {
     label: "Email",
     href: "mailto:david@antolick.ai",
   },
@@ -44,24 +48,23 @@ export default function Hero() {
         </p>
 
         <div className="flex justify-center gap-8 mt-12">
-          {SOCIAL_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              target={link.href.startsWith("mailto") ? undefined : "_blank"}
-              rel={
-                link.href.startsWith("mailto")
-                  ? undefined
-                  : "noopener noreferrer"
-              }
-              className="font-mono text-base text-slate-400 hover:text-violet-300 transition-colors"
-            >
-              {link.label}
-              {!link.href.startsWith("mailto") && (
-                <span className="ml-1 text-violet-400">↗</span>
-              )}
-            </a>
-          ))}
+          {SOCIAL_LINKS.map((link) => {
+            const isExternal = link.href.startsWith("http");
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                target={link.href.startsWith("mailto") ? undefined : "_blank"}
+                rel={isExternal ? "noopener noreferrer" : undefined}
+                className="font-mono text-base text-slate-400 hover:text-violet-300 transition-colors"
+              >
+                {link.label}
+                {isExternal && (
+                  <span className="ml-1 text-violet-400">↗</span>
+                )}
+              </a>
+            );
+          })}
         </div>
 
         <div className="flex justify-center mt-10">
