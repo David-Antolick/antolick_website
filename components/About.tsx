@@ -58,35 +58,20 @@ export default function About() {
             3070 Ti and watched it generate output, the priority order
             flipped. I finished the degree, forewent the PhD, and started
             building full-time. REX, one of my earliest Python projects from
-            years before, got a complete rebuild. Then came{" "}
-            <a
-              href="https://climbspeed.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-violet-400 hover:text-violet-300 transition-colors"
-            >
-              ClimbSpeed
-            </a>
-            , then J&amp;J. That 3070 Ti eventually grew into a proper
-            homelab &mdash; a co-owned server with dual RTX 6000s where I
-            train, evaluate, and host my own stack.
+            years before, got a complete rebuild. Then came ClimbSpeed, then
+            J&amp;J. That 3070 Ti eventually grew into a homelab with dual
+            RTX 6000s where I train, evaluate, and host my own stack.
           </p>
           <p>
-            I treat engineering as an iterative discovery process. I start by
-            building something observable and testable, then use measurement to
-            guide simplification. My goal is always the smallest architecture
-            that reliably solves the problem &mdash; complexity is fine during
-            exploration, but it earns its place through measurable impact. At
-            ClimbSpeed, that philosophy meant replacing a complex validation
-            agent with a minimal tool design that scored 15 points higher. At
-            J&amp;J, it means pipelines that unify messy manufacturing data
-            into something a chatbot can safely query.
-          </p>
-          <p>
-            What keeps me going is the full loop: dig into the research, form
-            an idea, build it, measure it, simplify it, ship it. I&apos;m as
-            comfortable owning a system end-to-end as I am buried in a single
-            component &mdash; and I genuinely love every part of that spectrum.
+            I treat engineering as an iterative discovery process &mdash; build
+            something observable and testable first, then let measurement guide
+            simplification. Complexity is fine during exploration, but it earns
+            its place through impact. At ClimbSpeed, that meant replacing a
+            complex validation agent with a minimal tool design that scored 15
+            points higher. At J&amp;J, it means pipelines that turn
+            heterogeneous manufacturing data into something a chatbot can
+            safely query. The goal is always the smallest architecture that
+            reliably solves the problem.
           </p>
         </div>
       </div>
