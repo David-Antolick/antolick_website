@@ -9,7 +9,6 @@ interface Star {
   opacity: number;
   twinkleSpeed: number;
   twinkleOffset: number;
-  // Warp: direction away from center (unit vector)
   dirX: number;
   dirY: number;
   speed: number;
@@ -32,6 +31,12 @@ export default function Starfield() {
     let warpActive = false;
     let warpPhase: "accelerate" | "cruise" | "decelerate" | "idle" = "idle";
     let warpStartTime = 0;
+
+    // Post-warp fade: 0 = invisible, 1 = fully visible
+    let fadeIn = 1;
+    let fading = false;
+    const FADE_DURATION = 2000;
+    let fadeStartTime = 0;
 
     const ACCEL_DURATION = 500;
     const CRUISE_DURATION = 1800;
@@ -70,12 +75,26 @@ export default function Starfield() {
       };
     }
 
+    function placeOnRing(star: Star) {
+      const cx = canvas!.width / 2;
+      const cy = canvas!.height / 2;
+      const angle = Math.random() * Math.PI * 2;
+      const ringRadius = 30 + Math.random() * 120;
+      star.x = cx + Math.cos(angle) * ringRadius;
+      star.y = cy + Math.sin(angle) * ringRadius;
+      star.dirX = Math.cos(angle);
+      star.dirY = Math.sin(angle);
+      star.speed = 1.5 + Math.random() * 3;
+    }
+
     function startWarp() {
       warpActive = true;
       warpPhase = "accelerate";
       warpStartTime = performance.now();
+      fading = false;
+      fadeIn = 1;
 
-      // Recalculate directions from current center
+      // Keep stars where they are — just set their direction outward from center
       const cx = canvas!.width / 2;
       const cy = canvas!.height / 2;
       for (const star of stars) {
@@ -118,6 +137,14 @@ export default function Starfield() {
         if (elapsed >= DECEL_DURATION) {
           warpPhase = "idle";
           warpActive = false;
+          // Scatter stars back to random positions and start fade-in
+          for (const star of stars) {
+            star.x = Math.random() * canvas!.width;
+            star.y = Math.random() * canvas!.height;
+          }
+          fadeIn = 0;
+          fading = true;
+          fadeStartTime = now;
           return 0;
         }
         const t = 1 - elapsed / DECEL_DURATION;
@@ -133,28 +160,27 @@ export default function Starfield() {
 
       ctx!.clearRect(0, 0, w, h);
 
+      // Update post-warp fade
+      if (fading) {
+        const elapsed = time - fadeStartTime;
+        fadeIn = Math.min(elapsed / FADE_DURATION, 1);
+        if (fadeIn >= 1) fading = false;
+      }
+
       const warpSpeed = warpActive ? getWarpSpeed(time) : 0;
 
       for (const star of stars) {
         if (warpActive && warpSpeed > 0.01) {
-          // Move star outward slowly
+          // Move star outward
           star.x += star.dirX * star.speed * warpSpeed * 8;
           star.y += star.dirY * star.speed * warpSpeed * 8;
 
-          // Respawn offscreen stars in a ring around center (like Star Wars)
+          // Respawn offscreen stars in ring
           if (star.x < -100 || star.x > w + 100 || star.y < -100 || star.y > h + 100) {
-            const cx = w / 2;
-            const cy = h / 2;
-            const angle = Math.random() * Math.PI * 2;
-            const ringRadius = 30 + Math.random() * 120;
-            star.x = cx + Math.cos(angle) * ringRadius;
-            star.y = cy + Math.sin(angle) * ringRadius;
-            star.dirX = Math.cos(angle);
-            star.dirY = Math.sin(angle);
-            star.speed = 1.5 + Math.random() * 3;
+            placeOnRing(star);
           }
 
-          // Draw streak: line from star in the opposite direction of travel
+          // Draw streak
           const streakLen = warpSpeed * 60 * star.speed;
           const tailX = star.x - star.dirX * streakLen;
           const tailY = star.y - star.dirY * streakLen;
@@ -173,12 +199,12 @@ export default function Starfield() {
           ctx!.lineCap = "round";
           ctx!.stroke();
         } else {
-          // Normal twinkling
+          // Normal twinkling (with fade-in multiplier)
           const twinkle =
             Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.3 + 0.7;
           ctx!.beginPath();
           ctx!.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-          ctx!.fillStyle = `rgba(255, 255, 255, ${star.opacity * twinkle})`;
+          ctx!.fillStyle = `rgba(255, 255, 255, ${star.opacity * twinkle * fadeIn})`;
           ctx!.fill();
         }
       }
