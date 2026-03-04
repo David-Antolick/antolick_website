@@ -54,7 +54,7 @@ export const projects: Project[] = [
   },
   {
     id: "jnj",
-    title: "J&J CAR-T AI Platform",
+    title: "J&J CAR-T AI",
     role: "AI and Platform Engineer",
     dates: "2025 to Present",
     summary:
