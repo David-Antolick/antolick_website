@@ -28,7 +28,7 @@ export default function About() {
             >
               ClimbSpeed
             </a>
-            {" "}&mdash; production RAG for aviation
+            , a production RAG platform for aviation
           </span>
 
           <span className="font-mono text-sm text-violet-400 text-right">
@@ -43,24 +43,26 @@ export default function About() {
             Homelab
           </span>
           <span className="text-base text-slate-300">
-            2&times; RTX 6000 Ada (96 GB VRAM) &mdash; training, eval, local inference
+            2&times; RTX 6000 Ada (96 GB VRAM) for training, eval, and local
+            inference
           </span>
         </div>
 
         <div className="space-y-4 text-sm leading-relaxed text-slate-400">
           <p>
-            Started in astronomy, shifted to genetics, then a friend taught me
-            Python right before college and something clicked that never
-            un-clicked. Computational biology at RPI gave me both code and
-            science. During my master&apos;s at Pitt I hosted a small model on a
-            3070 Ti, the priority order flipped, and I&apos;ve been building
-            full-time since.
+            I grew up obsessed with astronomy, then discovered genetics in high
+            school and figured I&apos;d spend my life in a lab. Right before
+            college a friend taught me Python and something clicked that never
+            un-clicked. Computational biology at RPI let me keep both code and
+            science. During my master&apos;s at Pitt I hosted a small model on
+            my own 3070 Ti, watched it generate output, and the priority order
+            flipped. I&apos;ve been building full-time since.
           </p>
           <p>
-            I treat engineering as iterative discovery &mdash; build something
-            observable first, let measurement guide simplification. At
-            ClimbSpeed, that meant replacing a complex validation agent with a
-            minimal tool design that scored 15 points higher. At J&amp;J, it
+            I treat engineering as iterative discovery: build something
+            observable first, then let measurement guide simplification. At
+            ClimbSpeed that meant replacing a complex validation agent with a
+            minimal tool design that scored 15 points higher. At J&amp;J it
             means pipelines that turn heterogeneous manufacturing data into
             something a chatbot can safely query. The goal is always the
             smallest architecture that reliably solves the problem.

@@ -22,9 +22,9 @@ export const projects: Project[] = [
     id: "climbspeed",
     title: "ClimbSpeed",
     role: "Independent Engineer",
-    dates: "2025 – Present",
+    dates: "2025 to Present",
     summary:
-      "Production RAG platform helping student pilots prepare for FAA knowledge tests. Custom agentic framework, hybrid retrieval, and eval-driven development — built end-to-end solo.",
+      "Production RAG platform helping student pilots prepare for FAA knowledge tests. Custom agentic framework, hybrid retrieval, and eval-driven development, built end-to-end solo.",
     oneLiner: "99.6% pass rate RAG platform for FAA pilot test prep",
     tags: ["Python", "FastAPI", "Next.js", "React", "RAG", "PostgreSQL", "Docker"],
     link: "https://climbspeed.com",
@@ -33,22 +33,22 @@ export const projects: Project[] = [
       {
         title: "Why Build From Scratch?",
         content:
-          "The first agent prototype used a complex grounded-validation approach with evidence scratchpads and fuzzy matching — it scored 78-86% pass rate. Replacing it with a minimal search + submit tool design scored 93-95%. The LLM was already good at citing; validation layers just added friction. A custom ReAct framework keeps that simplicity: ~300 lines of core loop, no abstraction tax, full control over tool-calling and streaming.",
+          "The first agent prototype used a complex grounded-validation approach with evidence scratchpads and fuzzy matching. It scored 78-86% pass rate. Replacing it with a minimal search + submit tool design scored 93-95%. The LLM was already good at citing; validation layers just added friction. A custom ReAct framework keeps that simplicity: ~300 lines of core loop, no abstraction tax, full control over tool-calling and streaming.",
       },
       {
         title: "Hybrid Retrieval",
         content:
-          "Aviation content is dense with exact regulatory references (CFR 91.155, VOR, METAR). Semantic search handles paraphrased questions well but misses exact acronyms that BM25 catches directly. Adding BM25 with 2x weight in Reciprocal Rank Fusion was the single biggest retrieval quality improvement. RRF merges rank positions — not raw scores — sidestepping the calibration problem between cosine similarity and TF-IDF scales entirely.",
+          "Aviation content is dense with exact regulatory references (CFR 91.155, VOR, METAR). Semantic search handles paraphrased questions well but misses exact acronyms that BM25 catches directly. Adding BM25 with 2x weight in Reciprocal Rank Fusion was the single biggest retrieval quality improvement. RRF merges rank positions, not raw scores, sidestepping the calibration problem between cosine similarity and TF-IDF scales entirely.",
       },
       {
         title: "Deterministic Compute Tools",
         content:
-          "The alpha audit surfaced two categories where LLMs consistently fail: wind triangle math (groundspeed, crosswind components, density altitude) and FAA calendar month conventions for inspection deadlines. More prompting doesn't fix arithmetic — a calculator does. An alpha user group confirmed these gaps, and the fix was straightforward: 9 aviation math functions + 7 FAA deadline functions, all running in a restricted Python sandbox with 75 unit tests covering every audit failure case.",
+          "The alpha audit surfaced two categories where LLMs consistently fail: wind triangle math (groundspeed, crosswind components, density altitude) and FAA calendar month conventions for inspection deadlines. More prompting doesn't fix arithmetic, but a calculator does. An alpha user group confirmed these gaps, and the fix was straightforward: 9 aviation math functions + 7 FAA deadline functions, all running in a restricted Python sandbox with 75 unit tests covering every audit failure case.",
       },
       {
         title: "Measured Results",
         content:
-          "4.86/5.0 correctness, 99.6% pass rate, 100% citation compliance across 230 benchmarked questions. Streaming reduced time-to-first-token by 48%, and every architectural decision has a before/after measurement — round-based search limits alone improved quality from 4.73 to 4.82 while cutting end-to-end latency nearly in half.",
+          "4.86/5.0 correctness, 99.6% pass rate, 100% citation compliance across 230 benchmarked questions. Streaming reduced time-to-first-token by 48%, and every architectural decision has a before/after measurement. Round-based search limits alone improved quality from 4.73 to 4.82 while cutting end-to-end latency nearly in half.",
       },
     ],
   },
@@ -56,7 +56,7 @@ export const projects: Project[] = [
     id: "jnj",
     title: "J&J CAR-T Manufacturing AI",
     role: "AI and Platform Engineer",
-    dates: "2025 – Present",
+    dates: "2025 to Present",
     summary:
       "Data pipelines and multi-agent chatbots for Carvykti CAR-T cell therapy lentiviral vector manufacturing at Johnson & Johnson.",
     oneLiner: "AI pipelines for CAR-T cell therapy manufacturing at J&J",
@@ -65,12 +65,12 @@ export const projects: Project[] = [
       {
         title: "Manufacturing Data Pipeline",
         content:
-          "Unifies four heterogeneous data sources — material lineage, quality release data, manufacturing process parameters across multiple parquet datasets, and a ground-truth overview — into cohesive outputs powering both an internal portal and Delta Lake tables backing a chatbot's SQL interface. Iterative DFS with memoization builds the full recursive input tree for every material in the genealogy graph.",
+          "Unifies four heterogeneous data sources (material lineage, quality release data, manufacturing process parameters across multiple parquet datasets, and a ground-truth overview) into cohesive outputs powering both an internal portal and Delta Lake tables backing a chatbot's SQL interface. Iterative DFS with memoization builds the full recursive input tree for every material in the genealogy graph.",
       },
       {
         title: "Multi-Agent Chatbot",
         content:
-          "Claude-powered routing agent with a custom SQL executor. SELECT-only validation with automatic row limits prevents runaway queries across manufacturing and ML model metric tables. Natural language to SQL over regulated manufacturing data — the chatbot safely queries production batch records while enforcing read-only access controls.",
+          "Claude-powered routing agent with a custom SQL executor. SELECT-only validation with automatic row limits prevents runaway queries across manufacturing and ML model metric tables. Natural language to SQL over regulated manufacturing data: the chatbot safely queries production batch records while enforcing read-only access controls.",
       },
       {
         title: "ML Visualization Pipeline",
@@ -88,10 +88,10 @@ export const projects: Project[] = [
     id: "rex",
     title: "REX Voice Assistant",
     role: "Personal Project",
-    dates: "2024 – 2025",
+    dates: "2024 to 2025",
     summary:
-      "Fully local streaming voice assistant with sub-second perceived latency for hands-free desktop control. Not a demo — a shipped, installable, configurable tool.",
-    oneLiner: "Sub-second local voice assistant — no cloud, no latency",
+      "Fully local streaming voice assistant with sub-second perceived latency for hands-free desktop control. Not a demo: a shipped, installable, configurable tool.",
+    oneLiner: "Sub-second local voice assistant, no cloud, no latency",
     tags: ["Python", "Whisper", "FastAPI", "CUDA", "Silero VAD", "asyncio"],
     link: "https://github.com/David-Antolick/REX_voice_assistant",
     linkLabel: "GitHub",
@@ -99,17 +99,17 @@ export const projects: Project[] = [
       {
         title: "The Differentiator",
         content:
-          "Most voice assistant tutorials transcribe after the user stops speaking, have no latency awareness, and aren't packaged or configurable. REX's low-latency mode transcribes partial audio buffers periodically and checks partial transcripts for safe early command matches — executing immediately and clearing the buffer. This reduces perceived latency significantly while consciously controlling the precision/speed tradeoff.",
+          "Most voice assistant tutorials transcribe after the user stops speaking, have no latency awareness, and aren't packaged or configurable. REX's low-latency mode transcribes partial audio buffers periodically and checks partial transcripts for safe early command matches, executing immediately and clearing the buffer. This reduces perceived latency significantly while consciously controlling the precision/speed tradeoff.",
       },
       {
         title: "Why These Tools",
         content:
-          "Every choice optimizes for local-first speed. Silero VAD over WebRTC VAD for better utterance boundary detection. faster-whisper with CTranslate2 over stock Whisper for 4x inference speedup. Regex routing over an intent classifier because command sets are finite and deterministic matching eliminates false positives. No LLM inference loops — avoids hallucination, latency, and cloud dependency entirely.",
+          "Every choice optimizes for local-first speed. Silero VAD over WebRTC VAD for better utterance boundary detection. faster-whisper with CTranslate2 over stock Whisper for 4x inference speedup. Regex routing over an intent classifier because command sets are finite and deterministic matching eliminates false positives. No LLM inference loops, which avoids hallucination, latency, and cloud dependency entirely.",
       },
       {
         title: "Runs on a Laptop",
         content:
-          "The entire pipeline — VAD, transcription, intent matching, command execution — runs on consumer hardware with no cloud calls. CUDA acceleration is optional, not required. Explicit DLL path handling for Windows ensures cuDNN/cuBLAS discoverability without manual environment setup. Packaged as an installable CLI tool with layered config (defaults → user overrides → env vars) and keyring-based secret storage.",
+          "The entire pipeline (VAD, transcription, intent matching, command execution) runs on consumer hardware with no cloud calls. CUDA acceleration is optional, not required. Explicit DLL path handling for Windows ensures cuDNN/cuBLAS discoverability without manual environment setup. Packaged as an installable CLI tool with layered config (defaults, user overrides, env vars) and keyring-based secret storage.",
       },
       {
         title: "Real System Integrations",
@@ -121,10 +121,10 @@ export const projects: Project[] = [
   {
     id: "intron-retention",
     title: "Intron Retention Analysis",
-    role: "Research — Robin Lee Lab, Pitt",
-    dates: "2024 – 2025",
+    role: "Research, Robin Lee Lab, Pitt",
+    dates: "2024 to 2025",
     summary:
-      "Bioinformatics pipeline for intron retention analysis in U2OS cells treated with TNF-α, processing ~300K rows across experimental timepoints.",
+      "Bioinformatics pipeline for intron retention analysis in U2OS cells treated with TNF-\u03B1, processing ~300K rows across experimental timepoints.",
     oneLiner: "Bioinformatics pipeline processing ~300K rows for RNA analysis",
     tags: ["Python", "Pandas", "Biopython", "Ensembl API", "Docker"],
     link: "https://github.com/David-Antolick/intron-retention-analysis",
@@ -133,7 +133,7 @@ export const projects: Project[] = [
       {
         title: "The Pipeline",
         content:
-          "Consumes IRFinder results and adds biological interpretation. Excel → pickle serialization (~50x load speedup over ~300K rows/sheet) → QC filtering → Ensembl enrichment via batch REST API + BioMart → intron extraction with strand-aware correction → translation and frame analysis → NMD prediction. Four experimental timepoints: CTRL, 1HR, 2HR, 4HR.",
+          "Consumes IRFinder results and adds biological interpretation. Excel to pickle serialization (~50x load speedup over ~300K rows/sheet), then QC filtering, Ensembl enrichment via batch REST API + BioMart, intron extraction with strand-aware correction, translation and frame analysis, and NMD prediction. Four experimental timepoints: CTRL, 1HR, 2HR, 4HR.",
       },
       {
         title: "Data Engineering at Scale",
@@ -143,7 +143,7 @@ export const projects: Project[] = [
       {
         title: "NMD Prediction",
         content:
-          "Predicts nonsense-mediated decay susceptibility using exon junction complex distance rules: ≥30 amino acids to intron end, ≥55 amino acids to next exon junction. Reconstructs intron-retained transcripts with strand-aware coordinate conversion, identifies premature termination codons, and classifies coding impact. Output is a multi-sheet Excel workbook with sequence data, classifications, and NMD predictions ready for the lab.",
+          "Predicts nonsense-mediated decay susceptibility using exon junction complex distance rules: at least 30 amino acids to intron end, at least 55 amino acids to next exon junction. Reconstructs intron-retained transcripts with strand-aware coordinate conversion, identifies premature termination codons, and classifies coding impact. Output is a multi-sheet Excel workbook with sequence data, classifications, and NMD predictions ready for the lab.",
       },
     ],
   },
@@ -151,7 +151,7 @@ export const projects: Project[] = [
     id: "masters-ml",
     title: "Masters ML Projects",
     role: "University of Pittsburgh",
-    dates: "2024 – 2025",
+    dates: "2024 to 2025",
     summary:
       "Drug-kinase binding prediction, molecular generation, scalable microscopy classification, and molecular dynamics across four graduate projects.",
     oneLiner: "Drug binding prediction, molecular generation, distributed training",
@@ -177,7 +177,7 @@ export const projects: Project[] = [
       {
         title: "Molecular Dynamics",
         content:
-          "Protein-ligand simulations with OpenMM: implicit-solvent pre-minimization → explicit TIP3P solvation → NPT equilibration → production trajectory. Multi-GPU CUDA with mixed precision. Plus protein embedding analysis comparing per-residue ESM-2 embeddings against BLOSUM62 features for DMS fitness prediction (R² ~0.73).",
+          "Protein-ligand simulations with OpenMM: implicit-solvent pre-minimization, then explicit TIP3P solvation, NPT equilibration, and production trajectory. Multi-GPU CUDA with mixed precision. Plus protein embedding analysis comparing per-residue ESM-2 embeddings against BLOSUM62 features for DMS fitness prediction (R\u00B2 ~0.73).",
       },
     ],
   },
