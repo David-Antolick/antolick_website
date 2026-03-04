@@ -54,12 +54,12 @@ export const projects: Project[] = [
   },
   {
     id: "jnj",
-    title: "J&J CAR-T Manufacturing AI",
+    title: "J&J CAR-T AI Platform",
     role: "AI and Platform Engineer",
     dates: "2025 to Present",
     summary:
       "Data pipelines and multi-agent chatbots for Carvykti CAR-T cell therapy lentiviral vector manufacturing at Johnson & Johnson.",
-    oneLiner: "AI pipelines for CAR-T cell therapy manufacturing at J&J",
+    oneLiner: "AI pipelines and risk intelligence for CAR-T manufacturing at J&J",
     tags: ["PySpark", "Databricks", "Claude", "Delta Lake", "Azure", "AWS S3"],
     sections: [
       {
