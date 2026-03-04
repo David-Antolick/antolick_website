@@ -32,15 +32,9 @@ export default function Starfield() {
     let warpPhase: "accelerate" | "cruise" | "decelerate" | "idle" = "idle";
     let warpStartTime = 0;
 
-    // Post-warp fade: 0 = invisible, 1 = fully visible
-    let fadeIn = 1;
-    let fading = false;
-    const FADE_DURATION = 2000;
-    let fadeStartTime = 0;
-
     const ACCEL_DURATION = 500;
     const CRUISE_DURATION = 1800;
-    const DECEL_DURATION = 1000;
+    const DECEL_DURATION = 2000;
 
     function resize() {
       canvas!.width = window.innerWidth;
@@ -79,7 +73,7 @@ export default function Starfield() {
       const cx = canvas!.width / 2;
       const cy = canvas!.height / 2;
       const angle = Math.random() * Math.PI * 2;
-      const ringRadius = 30 + Math.random() * 120;
+      const ringRadius = 120 + Math.random() * 200;
       star.x = cx + Math.cos(angle) * ringRadius;
       star.y = cy + Math.sin(angle) * ringRadius;
       star.dirX = Math.cos(angle);
@@ -91,10 +85,8 @@ export default function Starfield() {
       warpActive = true;
       warpPhase = "accelerate";
       warpStartTime = performance.now();
-      fading = false;
-      fadeIn = 1;
 
-      // Keep stars where they are — just set their direction outward from center
+      // Keep stars where they are — just set direction outward from center
       const cx = canvas!.width / 2;
       const cy = canvas!.height / 2;
       for (const star of stars) {
@@ -137,14 +129,6 @@ export default function Starfield() {
         if (elapsed >= DECEL_DURATION) {
           warpPhase = "idle";
           warpActive = false;
-          // Scatter stars back to random positions and start fade-in
-          for (const star of stars) {
-            star.x = Math.random() * canvas!.width;
-            star.y = Math.random() * canvas!.height;
-          }
-          fadeIn = 0;
-          fading = true;
-          fadeStartTime = now;
           return 0;
         }
         const t = 1 - elapsed / DECEL_DURATION;
@@ -160,51 +144,53 @@ export default function Starfield() {
 
       ctx!.clearRect(0, 0, w, h);
 
-      // Update post-warp fade
-      if (fading) {
-        const elapsed = time - fadeStartTime;
-        fadeIn = Math.min(elapsed / FADE_DURATION, 1);
-        if (fadeIn >= 1) fading = false;
-      }
-
       const warpSpeed = warpActive ? getWarpSpeed(time) : 0;
 
       for (const star of stars) {
-        if (warpActive && warpSpeed > 0.01) {
-          // Move star outward
+        if (warpActive) {
+          // Move star outward (even during deceleration, just slower)
           star.x += star.dirX * star.speed * warpSpeed * 8;
           star.y += star.dirY * star.speed * warpSpeed * 8;
 
-          // Respawn offscreen stars in ring
+          // Respawn offscreen stars from ring
           if (star.x < -100 || star.x > w + 100 || star.y < -100 || star.y > h + 100) {
             placeOnRing(star);
           }
 
-          // Draw streak
+          // Streak length shrinks naturally with warpSpeed toward 0
           const streakLen = warpSpeed * 60 * star.speed;
-          const tailX = star.x - star.dirX * streakLen;
-          const tailY = star.y - star.dirY * streakLen;
 
-          const grad = ctx!.createLinearGradient(tailX, tailY, star.x, star.y);
-          const a = star.opacity * warpSpeed;
-          grad.addColorStop(0, `rgba(167, 139, 250, 0)`);
-          grad.addColorStop(0.6, `rgba(200, 190, 255, ${a * 0.4})`);
-          grad.addColorStop(1, `rgba(255, 255, 255, ${Math.min(a, 1)})`);
+          if (streakLen < 0.5) {
+            // Streak too small — render as dot (seamless transition)
+            ctx!.beginPath();
+            ctx!.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+            ctx!.fillStyle = `rgba(255, 255, 255, ${star.opacity * Math.max(warpSpeed, 0.05)})`;
+            ctx!.fill();
+          } else {
+            const tailX = star.x - star.dirX * streakLen;
+            const tailY = star.y - star.dirY * streakLen;
 
-          ctx!.beginPath();
-          ctx!.moveTo(tailX, tailY);
-          ctx!.lineTo(star.x, star.y);
-          ctx!.strokeStyle = grad;
-          ctx!.lineWidth = star.radius * (0.6 + warpSpeed * 0.8);
-          ctx!.lineCap = "round";
-          ctx!.stroke();
+            const grad = ctx!.createLinearGradient(tailX, tailY, star.x, star.y);
+            const a = star.opacity * warpSpeed;
+            grad.addColorStop(0, `rgba(167, 139, 250, 0)`);
+            grad.addColorStop(0.6, `rgba(200, 190, 255, ${a * 0.4})`);
+            grad.addColorStop(1, `rgba(255, 255, 255, ${Math.min(a, 1)})`);
+
+            ctx!.beginPath();
+            ctx!.moveTo(tailX, tailY);
+            ctx!.lineTo(star.x, star.y);
+            ctx!.strokeStyle = grad;
+            ctx!.lineWidth = star.radius * (0.6 + warpSpeed * 0.8);
+            ctx!.lineCap = "round";
+            ctx!.stroke();
+          }
         } else {
-          // Normal twinkling (with fade-in multiplier)
+          // Normal twinkling
           const twinkle =
             Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.3 + 0.7;
           ctx!.beginPath();
           ctx!.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-          ctx!.fillStyle = `rgba(255, 255, 255, ${star.opacity * twinkle * fadeIn})`;
+          ctx!.fillStyle = `rgba(255, 255, 255, ${star.opacity * twinkle})`;
           ctx!.fill();
         }
       }
