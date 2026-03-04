@@ -4,11 +4,13 @@ import { useState } from "react";
 import type { Project } from "@/data/projects";
 import ProjectModal from "./ProjectModal";
 
-function formatDates(dates: string): string {
-  return dates
-    .replace("– Present", " – Now")
-    .replace("Aug ", "")
-    .replace("Sep ", "");
+function formatYear(dates: string): string {
+  const years = dates.match(/\d{4}/g);
+  if (!years) return dates;
+  if (years.length === 1) return years[0];
+  if (dates.includes("Present")) return years[0];
+  if (years[0] === years[1]) return years[0];
+  return `${years[0]}-${years[1].slice(2)}`;
 }
 
 export default function ProjectCard({ project }: { project: Project }) {
@@ -18,47 +20,32 @@ export default function ProjectCard({ project }: { project: Project }) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="w-full h-full text-left group p-5 rounded-lg border border-[#1e2140] bg-[#0d1025]/30 hover:border-violet-500/40 hover:bg-[#0d1025]/60 hover:shadow-[0_0_30px_rgba(139,92,246,0.08)] transition-all cursor-pointer flex flex-col"
+        className="w-full text-left group py-4 px-5 rounded-lg border border-transparent hover:border-violet-500/30 hover:bg-[#0d1025]/60 transition-all cursor-pointer"
       >
-        <div className="flex items-baseline justify-between gap-4 mb-2">
-          <h3 className="text-lg font-semibold text-white group-hover:text-violet-300 transition-colors">
-            {project.title}
-          </h3>
-          <span className="font-mono text-sm text-violet-400 shrink-0">
-            {formatDates(project.dates)}
+        <div className="flex items-baseline gap-4">
+          <span className="font-mono text-sm text-violet-400/70 shrink-0 w-16">
+            {formatYear(project.dates)}
+          </span>
+          <div className="min-w-0 flex-1">
+            <span className="text-base font-semibold text-white group-hover:text-violet-300 transition-colors">
+              {project.title}
+            </span>
+            {project.dates.includes("Present") && (
+              <span className="ml-2 font-mono text-xs text-emerald-400/80">
+                active
+              </span>
+            )}
+            <p className="text-sm text-slate-400 mt-0.5 truncate">
+              {project.oneLiner}
+            </p>
+          </div>
+          <span
+            className="text-slate-600 group-hover:text-violet-400 transition-colors ml-auto shrink-0"
+            aria-hidden="true"
+          >
+            &rarr;
           </span>
         </div>
-
-        <p className="text-sm font-mono text-slate-400">
-          {project.role}
-        </p>
-
-        <p className="text-base text-slate-300 mt-3 leading-relaxed">
-          {project.summary}
-        </p>
-
-        <div className="flex flex-wrap gap-2 mt-auto pt-4">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="font-mono text-xs px-2 py-0.5 rounded bg-violet-500/10 text-violet-300"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {project.link && (
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="font-mono text-sm text-white bg-violet-600/20 hover:bg-violet-600/40 border border-violet-500/40 hover:border-violet-400 transition-all mt-4 inline-flex items-center gap-1.5 rounded-md px-3 py-1.5"
-          >
-            {project.linkLabel || "View Project"} <span className="text-violet-300">↗</span>
-          </a>
-        )}
       </button>
       {isOpen && (
         <ProjectModal project={project} onClose={() => setIsOpen(false)} />

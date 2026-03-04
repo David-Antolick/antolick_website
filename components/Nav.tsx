@@ -1,7 +1,8 @@
 const NAV_LINKS = [
+  { label: "Projects", href: "#projects" },
+  { label: "Infra", href: "#infrastructure" },
   { label: "About", href: "#about" },
-  { label: "Catalog", href: "#projects" },
-  { label: "Signal", href: "#contact" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Nav() {

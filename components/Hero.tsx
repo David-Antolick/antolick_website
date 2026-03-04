@@ -17,13 +17,11 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden"
+      className="min-h-[45vh] flex items-center justify-center px-4 py-16 relative overflow-hidden"
     >
       {/* Orbit rings */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="orbit-ring w-[500px] h-[500px] md:w-[700px] md:h-[700px]" />
-        <div className="orbit-ring w-[700px] h-[700px] md:w-[1000px] md:h-[1000px] opacity-50" />
-        <div className="orbit-ring w-[900px] h-[900px] md:w-[1300px] md:h-[1300px] opacity-25" />
+        <div className="orbit-ring w-[500px] h-[500px] md:w-[700px] md:h-[700px] opacity-[0.03]" />
       </div>
 
       <div className="max-w-3xl text-center relative z-10">
@@ -64,6 +62,15 @@ export default function Hero() {
               )}
             </a>
           ))}
+        </div>
+
+        <div className="flex justify-center mt-10">
+          <a
+            href="#projects"
+            className="inline-flex items-center gap-2 font-mono text-sm tracking-widest uppercase px-6 py-3 rounded border border-violet-500/40 text-violet-300 hover:bg-violet-600/20 hover:border-violet-400 transition-all"
+          >
+            View Projects <span aria-hidden="true">&darr;</span>
+          </a>
         </div>
       </div>
     </section>

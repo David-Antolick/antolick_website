@@ -59,6 +59,17 @@ export default function ProjectModal({
           </a>
         )}
 
+        {project.image && (
+          <div className="mt-4 rounded-lg overflow-hidden border border-[#1e2140]">
+            <img
+              src={project.image}
+              alt={`${project.title} screenshot`}
+              className="w-full h-auto"
+              loading="lazy"
+            />
+          </div>
+        )}
+
         <div className="flex flex-wrap gap-2 mt-4">
           {project.tags.map((tag) => (
             <span
@@ -81,6 +92,15 @@ export default function ProjectModal({
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-8 pt-6 border-t border-[#1e2140]">
+          <a
+            href={`mailto:david@antolick.ai?subject=${encodeURIComponent(`Re: ${project.title}`)}`}
+            className="inline-flex items-center gap-2 font-mono text-sm text-violet-300 hover:text-violet-200 bg-violet-600/20 hover:bg-violet-600/30 border border-violet-500/40 hover:border-violet-400 rounded-md px-4 py-2 transition-all"
+          >
+            Let&apos;s discuss this &rarr;
+          </a>
         </div>
       </div>
     </dialog>

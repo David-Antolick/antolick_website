@@ -9,8 +9,10 @@ export interface Project {
   role: string;
   dates: string;
   summary: string;
+  oneLiner: string;
   tags: string[];
   sections: ProjectSection[];
+  image?: string;
   link?: string;
   linkLabel?: string;
 }
@@ -23,6 +25,7 @@ export const projects: Project[] = [
     dates: "Aug 2025 – Present",
     summary:
       "Production RAG platform helping student pilots prepare for FAA knowledge tests. Custom agentic framework, hybrid retrieval, and eval-driven development — built end-to-end solo.",
+    oneLiner: "99.6% pass rate RAG platform for FAA pilot test prep",
     tags: ["Python", "FastAPI", "Next.js", "React", "RAG", "PostgreSQL", "Docker"],
     link: "https://climbspeed.com",
     linkLabel: "climbspeed.com",
@@ -56,6 +59,7 @@ export const projects: Project[] = [
     dates: "Sep 2025 – Present",
     summary:
       "Data pipelines and multi-agent chatbots for Carvykti CAR-T cell therapy lentiviral vector manufacturing at Johnson & Johnson.",
+    oneLiner: "AI pipelines for CAR-T cell therapy manufacturing at J&J",
     tags: ["PySpark", "Databricks", "Claude", "Delta Lake", "Azure", "AWS S3"],
     sections: [
       {
@@ -87,6 +91,7 @@ export const projects: Project[] = [
     dates: "2024 – 2025",
     summary:
       "Fully local streaming voice assistant with sub-second perceived latency for hands-free desktop control. Not a demo — a shipped, installable, configurable tool.",
+    oneLiner: "Sub-second local voice assistant — no cloud, no latency",
     tags: ["Python", "Whisper", "FastAPI", "CUDA", "Silero VAD", "asyncio"],
     link: "https://github.com/David-Antolick/REX_voice_assistant",
     linkLabel: "GitHub",
@@ -120,6 +125,7 @@ export const projects: Project[] = [
     dates: "2024 – 2025",
     summary:
       "Bioinformatics pipeline for intron retention analysis in U2OS cells treated with TNF-α, processing ~300K rows across experimental timepoints.",
+    oneLiner: "Bioinformatics pipeline processing ~300K rows for RNA analysis",
     tags: ["Python", "Pandas", "Biopython", "Ensembl API", "Docker"],
     link: "https://github.com/David-Antolick/intron-retention-analysis",
     linkLabel: "GitHub",
@@ -148,6 +154,7 @@ export const projects: Project[] = [
     dates: "2024 – 2025",
     summary:
       "Drug-kinase binding prediction, molecular generation, scalable microscopy classification, and molecular dynamics across four graduate projects.",
+    oneLiner: "Drug binding prediction, molecular generation, distributed training",
     tags: ["PyTorch", "ESM-2", "XGBoost", "DDP", "TorchScript", "OpenMM"],
     link: "https://github.com/David-Antolick/IDG-DREAM-Drug-Kinase-Binding-Prediction-Challenge",
     linkLabel: "GitHub (Drug-Kinase)",

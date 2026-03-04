@@ -22,19 +22,27 @@ export default function Footer() {
       <div className="max-w-3xl mx-auto text-center">
         <hr className="separator mb-10" />
 
+        <h2 className="font-mono text-2xl tracking-widest uppercase text-violet-400 mb-4">
+          ▸ Contact
+        </h2>
+
+        <p className="text-lg text-slate-300 mb-8">
+          Building something interesting? Let&apos;s talk.
+        </p>
+
         <a
           href="mailto:david@antolick.ai"
-          className="font-mono text-lg text-slate-300 hover:text-violet-300 transition-colors"
+          className="inline-flex items-center gap-2 font-mono text-base px-6 py-3 rounded border border-violet-500/40 text-violet-300 hover:bg-violet-600/20 hover:border-violet-400 transition-all"
         >
           david@antolick.ai
         </a>
 
-        <div className="flex justify-center items-center gap-4 mt-6">
+        <div className="flex justify-center items-center gap-4 mt-8">
           {LINKS.map((link, i) => (
             <span key={link.href} className="flex items-center gap-4">
               {i > 0 && (
                 <span className="text-slate-600" aria-hidden="true">
-                  ·
+                  &middot;
                 </span>
               )}
               <a
