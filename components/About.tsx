@@ -2,7 +2,7 @@ export default function About() {
   return (
     <section id="about" className="py-20 px-4">
       <div className="max-w-3xl mx-auto">
-        <h2 className="font-mono text-sm tracking-widest uppercase text-violet-400 mb-2">
+        <h2 className="font-mono text-2xl tracking-widest uppercase text-violet-400 mb-4">
           ▸ About
         </h2>
         <hr className="separator mb-10" />

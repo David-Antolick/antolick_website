@@ -7,7 +7,7 @@ export default function Projects() {
   return (
     <section id="projects" className="py-20 px-4">
       <div className="max-w-4xl mx-auto">
-        <h2 className="font-mono text-sm tracking-widest uppercase text-violet-400 mb-2">
+        <h2 className="font-mono text-2xl tracking-widest uppercase text-violet-400 mb-4">
           ▸ Catalog
         </h2>
         <hr className="separator mb-10" />
