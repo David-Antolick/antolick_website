@@ -73,7 +73,7 @@ export default function ProjectModal({
         <div className="mt-8 space-y-6">
           {project.sections.map((section) => (
             <div key={section.title}>
-              <h4 className="font-mono text-base font-bold tracking-wide text-violet-300 mb-3 border-b border-violet-500/20 pb-2">
+              <h4 className="font-mono text-lg font-bold tracking-wide text-white mb-3 border-l-2 border-violet-400 pl-3">
                 {section.title}
               </h4>
               <p className="text-base leading-relaxed text-slate-300">

@@ -28,7 +28,7 @@ export default function About() {
             >
               ClimbSpeed
             </a>
-            {" "}&mdash; production RAG for aviation
+            {" "}— production RAG for aviation
           </span>
 
           <span className="font-mono text-sm text-violet-400 text-right">
@@ -42,17 +42,17 @@ export default function About() {
 
         <div className="space-y-5 text-base leading-relaxed text-slate-300">
           <p>
-            Growing up, I was obsessed with astronomy &mdash; every book in the
+            Growing up, I was obsessed with astronomy. Every book in the
             local library, meetings at the astronomical society, the whole
-            dream of spaceflight. My grandfather fueled that. In high school
-            the lens shifted from the supermassive to the microscopic: I
-            discovered genetics and locked in on aging research, convinced
-            I&apos;d spend my life in a lab chasing a PhD. Then, right before
-            college applications, a close friend insisted on teaching me
-            Python. Something clicked that never un-clicked.
+            dream of spaceflight. In high school the lens shifted from the
+            supermassive to the microscopic: I discovered genetics and locked
+            in on aging research, convinced I&apos;d spend my life in a lab
+            chasing a PhD. Then, right before college applications, a close
+            friend insisted on teaching me Python. Something clicked that
+            never un-clicked.
           </p>
           <p>
-            Computational biology gave me a way to keep both &mdash; code and
+            Computational biology gave me a way to keep both: code and
             science, together. But during my master&apos;s at Pitt, I got my
             first real taste of AI. The day I hosted a small model on my own
             3070 Ti and watched it generate output, the priority order
@@ -63,7 +63,7 @@ export default function About() {
             RTX 6000s where I train, evaluate, and host my own stack.
           </p>
           <p>
-            I treat engineering as an iterative discovery process &mdash; build
+            I treat engineering as an iterative discovery process. Build
             something observable and testable first, then let measurement guide
             simplification. Complexity is fine during exploration, but it earns
             its place through impact. At ClimbSpeed, that meant replacing a
