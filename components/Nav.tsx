@@ -6,7 +6,7 @@ const NAV_LINKS = [
 
 export default function Nav() {
   return (
-    <nav className="sticky top-0 z-50 bg-[#0b0d1a]/80 backdrop-blur border-b border-[#1e2140]">
+    <nav className="sticky top-0 z-50 bg-[#080a14]/80 backdrop-blur border-b border-[#1e2140]">
       <div className="max-w-4xl mx-auto px-4 flex items-center justify-between h-12">
         <a
           href="#hero"
