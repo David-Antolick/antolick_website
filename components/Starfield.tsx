@@ -32,9 +32,17 @@ export default function Starfield() {
     let warpPhase: "accelerate" | "cruise" | "decelerate" | "idle" = "idle";
     let warpStartTime = 0;
 
+    // Post-warp fade-in
+    let fadeIn = false;
+    let fadeInStart = 0;
+    const FADE_IN_DURATION = 2000;
+
     const ACCEL_DURATION = 500;
     const CRUISE_DURATION = 1800;
     const DECEL_DURATION = 2000;
+
+    // Exclusion zone: no stars rendered inside this radius from center during warp
+    const EXCLUSION_RADIUS = 180;
 
     function resize() {
       canvas!.width = window.innerWidth;
@@ -73,7 +81,8 @@ export default function Starfield() {
       const cx = canvas!.width / 2;
       const cy = canvas!.height / 2;
       const angle = Math.random() * Math.PI * 2;
-      const ringRadius = 120 + Math.random() * 200;
+      // Spawn just outside the exclusion zone
+      const ringRadius = EXCLUSION_RADIUS + 20 + Math.random() * 100;
       star.x = cx + Math.cos(angle) * ringRadius;
       star.y = cy + Math.sin(angle) * ringRadius;
       star.dirX = Math.cos(angle);
@@ -85,17 +94,23 @@ export default function Starfield() {
       warpActive = true;
       warpPhase = "accelerate";
       warpStartTime = performance.now();
+      fadeIn = false;
 
-      // Keep stars where they are — just set direction outward from center
       const cx = canvas!.width / 2;
       const cy = canvas!.height / 2;
       for (const star of stars) {
         const dx = star.x - cx;
         const dy = star.y - cy;
         const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-        star.dirX = dx / dist;
-        star.dirY = dy / dist;
-        star.speed = 1.5 + Math.random() * 3;
+
+        // Stars inside the exclusion zone get moved to the ring
+        if (dist < EXCLUSION_RADIUS) {
+          placeOnRing(star);
+        } else {
+          star.dirX = dx / dist;
+          star.dirY = dy / dist;
+          star.speed = 1.5 + Math.random() * 3;
+        }
       }
     }
 
@@ -129,6 +144,9 @@ export default function Starfield() {
         if (elapsed >= DECEL_DURATION) {
           warpPhase = "idle";
           warpActive = false;
+          // Start fade-in
+          fadeIn = true;
+          fadeInStart = now;
           return 0;
         }
         const t = 1 - elapsed / DECEL_DURATION;
@@ -145,6 +163,20 @@ export default function Starfield() {
       ctx!.clearRect(0, 0, w, h);
 
       const warpSpeed = warpActive ? getWarpSpeed(time) : 0;
+      const cx = w / 2;
+      const cy = h / 2;
+
+      // Post-warp fade-in multiplier
+      let fadeAlpha = 1;
+      if (fadeIn) {
+        const fadeElapsed = time - fadeInStart;
+        if (fadeElapsed >= FADE_IN_DURATION) {
+          fadeIn = false;
+          fadeAlpha = 1;
+        } else {
+          fadeAlpha = fadeElapsed / FADE_IN_DURATION;
+        }
+      }
 
       for (const star of stars) {
         if (warpActive) {
@@ -156,6 +188,12 @@ export default function Starfield() {
           if (star.x < -100 || star.x > w + 100 || star.y < -100 || star.y > h + 100) {
             placeOnRing(star);
           }
+
+          // Skip stars inside the exclusion zone (clear center like Star Wars)
+          const sdx = star.x - cx;
+          const sdy = star.y - cy;
+          const distFromCenter = Math.sqrt(sdx * sdx + sdy * sdy);
+          if (distFromCenter < EXCLUSION_RADIUS) continue;
 
           // Streak length shrinks naturally with warpSpeed toward 0
           const streakLen = warpSpeed * 60 * star.speed;
@@ -190,7 +228,7 @@ export default function Starfield() {
             Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.3 + 0.7;
           ctx!.beginPath();
           ctx!.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-          ctx!.fillStyle = `rgba(255, 255, 255, ${star.opacity * twinkle})`;
+          ctx!.fillStyle = `rgba(255, 255, 255, ${star.opacity * twinkle * fadeAlpha})`;
           ctx!.fill();
         }
       }
