@@ -22,7 +22,7 @@ export const projects: Project[] = [
     id: "climbspeed",
     title: "ClimbSpeed",
     role: "Independent Engineer",
-    dates: "Aug 2025 – Present",
+    dates: "2025 – Present",
     summary:
       "Production RAG platform helping student pilots prepare for FAA knowledge tests. Custom agentic framework, hybrid retrieval, and eval-driven development — built end-to-end solo.",
     oneLiner: "99.6% pass rate RAG platform for FAA pilot test prep",
@@ -56,7 +56,7 @@ export const projects: Project[] = [
     id: "jnj",
     title: "J&J CAR-T Manufacturing AI",
     role: "AI and Platform Engineer",
-    dates: "Sep 2025 – Present",
+    dates: "2025 – Present",
     summary:
       "Data pipelines and multi-agent chatbots for Carvykti CAR-T cell therapy lentiviral vector manufacturing at Johnson & Johnson.",
     oneLiner: "AI pipelines for CAR-T cell therapy manufacturing at J&J",

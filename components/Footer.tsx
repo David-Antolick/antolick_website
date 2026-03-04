@@ -18,9 +18,9 @@ const LINKS = [
 
 export default function Footer() {
   return (
-    <footer id="contact" className="py-20 px-4">
+    <footer id="contact" className="py-10 px-4">
       <div className="max-w-3xl mx-auto text-center">
-        <hr className="separator mb-10" />
+        <hr className="separator mb-6" />
 
         <h2 className="font-mono text-2xl tracking-widest uppercase text-violet-400 mb-4">
           ▸ Contact

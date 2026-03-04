@@ -1,6 +1,6 @@
 export default function ConstellationDivider() {
   return (
-    <div className="flex items-center justify-center py-16" aria-hidden="true">
+    <div className="flex items-center justify-center py-4" aria-hidden="true">
       <svg
         width="200"
         height="20"

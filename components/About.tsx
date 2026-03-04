@@ -1,11 +1,11 @@
 export default function About() {
   return (
-    <section id="about" className="py-20 px-4">
+    <section id="about" className="py-10 px-4">
       <div className="max-w-3xl mx-auto">
         <h2 className="font-mono text-2xl tracking-widest uppercase text-violet-400 mb-4">
           ▸ About
         </h2>
-        <hr className="separator mb-10" />
+        <hr className="separator mb-6" />
 
         <div className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 mb-10">
           <span className="font-mono text-sm text-violet-400 text-right">

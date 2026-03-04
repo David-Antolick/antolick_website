@@ -1,11 +1,11 @@
 export default function Infrastructure() {
   return (
-    <section id="infrastructure" className="py-20 px-4">
+    <section id="infrastructure" className="py-10 px-4">
       <div className="max-w-3xl mx-auto">
         <h2 className="font-mono text-2xl tracking-widest uppercase text-violet-400 mb-4">
           ▸ Infrastructure
         </h2>
-        <hr className="separator mb-10" />
+        <hr className="separator mb-6" />
 
         <p className="text-base text-slate-300 mb-8 leading-relaxed">
           Everything on this site was built, trained, and evaluated on personal
