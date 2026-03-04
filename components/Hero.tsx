@@ -87,8 +87,8 @@ export default function Hero() {
 
       <div className="max-w-3xl text-center relative z-10">
         <h1
-          className="font-mono text-5xl md:text-8xl font-bold tracking-tight bg-gradient-to-r from-violet-400 via-purple-300 to-violet-400 bg-clip-text text-transparent"
-          style={{ filter: "drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5))" }}
+          className="text-5xl md:text-7xl font-bold tracking-tight bg-gradient-to-r from-violet-400 via-purple-300 to-violet-400 bg-clip-text text-transparent whitespace-nowrap"
+          style={{ fontFamily: "var(--font-jetbrains)", filter: "drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5))" }}
         >
           David Antolick
         </h1>

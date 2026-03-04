@@ -223,11 +223,21 @@ export default function Starfield() {
             ctx!.stroke();
           }
         } else {
-          // Normal twinkling
+          // Normal twinkling + slow rotation
           const twinkle =
-            Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.3 + 0.7;
+            Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.5 + 0.5;
+
+          // Rotate star position slowly around center
+          const rotAngle = time * 0.00003; // ~1 full rotation per ~58 hours — very slow
+          const relX = star.x - cx;
+          const relY = star.y - cy;
+          const cosA = Math.cos(rotAngle);
+          const sinA = Math.sin(rotAngle);
+          const drawX = cx + relX * cosA - relY * sinA;
+          const drawY = cy + relX * sinA + relY * cosA;
+
           ctx!.beginPath();
-          ctx!.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+          ctx!.arc(drawX, drawY, star.radius, 0, Math.PI * 2);
           ctx!.fillStyle = `rgba(255, 255, 255, ${star.opacity * twinkle * fadeAlpha})`;
           ctx!.fill();
         }
