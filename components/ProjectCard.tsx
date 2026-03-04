@@ -7,8 +7,12 @@ import ProjectModal from "./ProjectModal";
 function formatYear(dates: string): string {
   const years = dates.match(/\d{4}/g);
   if (!years) return dates;
+  const currentYear = new Date().getFullYear().toString();
+  if (dates.includes("Present")) {
+    if (years[0] === currentYear) return currentYear;
+    return `${years[0]}-${currentYear.slice(2)}`;
+  }
   if (years.length === 1) return years[0];
-  if (dates.includes("Present")) return years[0];
   if (years[0] === years[1]) return years[0];
   return `${years[0]}-${years[1].slice(2)}`;
 }
