@@ -1,3 +1,7 @@
+"use client";
+
+import { useCallback } from "react";
+
 const SOCIAL_LINKS = [
   {
     label: "GitHub",
@@ -17,7 +21,42 @@ const SOCIAL_LINKS = [
   },
 ];
 
+function spawnShootingStars(originX: number, originY: number) {
+  const count = 18;
+  for (let i = 0; i < count; i++) {
+    const star = document.createElement("div");
+    star.className = "shooting-star";
+
+    const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.4;
+    const distance = 200 + Math.random() * 300;
+    const dx = Math.cos(angle) * distance;
+    const dy = Math.sin(angle) * distance;
+    const duration = 0.8 + Math.random() * 0.6;
+    const trailAngle = (angle * 180) / Math.PI;
+
+    star.style.left = `${originX}px`;
+    star.style.top = `${originY}px`;
+    star.style.setProperty("--dx", `${dx}px`);
+    star.style.setProperty("--dy", `${dy}px`);
+    star.style.setProperty("--duration", `${duration}s`);
+    star.style.setProperty("--trail-angle", `${trailAngle}deg`);
+
+    document.body.appendChild(star);
+    star.addEventListener("animationend", () => star.remove());
+  }
+}
+
 export default function Hero() {
+  const handleAdAstra = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      spawnShootingStars(x, y);
+    },
+    []
+  );
+
   return (
     <section
       id="hero"
@@ -43,9 +82,13 @@ export default function Hero() {
           </p>
         </div>
 
-        <p className="italic text-sm tracking-[0.15em] text-violet-300/60 mt-6">
+        <button
+          onClick={handleAdAstra}
+          className="italic text-sm tracking-[0.15em] text-violet-300/60 mt-6 bg-transparent border-none cursor-default hover:text-violet-300/80 transition-colors duration-500"
+          aria-hidden="true"
+        >
           Ad Astra
-        </p>
+        </button>
 
         <div className="flex justify-center gap-8 mt-12">
           {SOCIAL_LINKS.map((link) => {
