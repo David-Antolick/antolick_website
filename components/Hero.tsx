@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import SecretTerminal from "./SecretTerminal";
 
 const SOCIAL_LINKS = [
   {
@@ -48,7 +47,6 @@ function spawnShootingStars(originX: number, originY: number) {
 }
 
 export default function Hero() {
-  const [showTerminal, setShowTerminal] = useState(false);
   const [warpQuote, setWarpQuote] = useState(false);
   const clickCount = useRef(0);
 
@@ -60,18 +58,17 @@ export default function Hero() {
       const y = rect.top + rect.height / 2;
 
       if (clickCount.current === 1) {
-        // First click: shooting stars + terminal
+        // First click: shooting stars
         spawnShootingStars(x, y);
-        setTimeout(() => setShowTerminal(true), 600);
       } else if (clickCount.current === 2) {
-        // Second click: Star Wars quote + hyperspace
+        // Second click: "Punch it." + hyperspace
         setWarpQuote(true);
         setTimeout(() => {
           setWarpQuote(false);
           window.dispatchEvent(new CustomEvent("warp"));
         }, 1500);
       } else {
-        // Subsequent clicks: just fire shooting stars for fun
+        // Subsequent clicks: shooting stars for fun
         spawnShootingStars(x, y);
       }
     },
@@ -141,13 +138,15 @@ export default function Hero() {
         </div>
       </div>
 
-      {showTerminal && (
-        <SecretTerminal onClose={() => setShowTerminal(false)} />
-      )}
-
       {warpQuote && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
-          <p className="font-mono text-2xl md:text-4xl text-amber-300/90 tracking-widest animate-pulse">
+        <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none bg-black/40">
+          <p
+            className="font-mono text-4xl md:text-6xl font-bold text-amber-300 tracking-widest"
+            style={{
+              textShadow:
+                "0 0 20px rgba(251, 191, 36, 0.6), 0 0 60px rgba(251, 191, 36, 0.3)",
+            }}
+          >
             Punch it.
           </p>
         </div>

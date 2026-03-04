@@ -9,9 +9,10 @@ interface Star {
   opacity: number;
   twinkleSpeed: number;
   twinkleOffset: number;
-  // Warp fields
-  vx: number;
-  vy: number;
+  // Warp: direction away from center (unit vector)
+  dirX: number;
+  dirY: number;
+  speed: number;
 }
 
 export default function Starfield() {
@@ -26,16 +27,15 @@ export default function Starfield() {
 
     let animationId: number;
     let stars: Star[] = [];
-    let baseCount = 0;
 
     // Warp state
     let warpActive = false;
     let warpPhase: "accelerate" | "cruise" | "decelerate" | "idle" = "idle";
     let warpStartTime = 0;
 
-    const ACCEL_DURATION = 600;
-    const CRUISE_DURATION = 2200;
-    const DECEL_DURATION = 1200;
+    const ACCEL_DURATION = 500;
+    const CRUISE_DURATION = 1800;
+    const DECEL_DURATION = 1000;
 
     function resize() {
       canvas!.width = window.innerWidth;
@@ -44,40 +44,29 @@ export default function Starfield() {
     }
 
     function initStars() {
-      baseCount = Math.floor((canvas!.width * canvas!.height) / 5000);
-      stars = Array.from({ length: baseCount }, () => randomStar(false));
+      const count = Math.floor((canvas!.width * canvas!.height) / 5000);
+      stars = Array.from({ length: count }, () => makeStar());
     }
 
-    function randomStar(nearCenter: boolean): Star {
+    function makeStar(): Star {
       const cx = canvas!.width / 2;
       const cy = canvas!.height / 2;
-      let x: number, y: number;
-
-      if (nearCenter) {
-        // Spawn near center for warp tunnel effect
-        const angle = Math.random() * Math.PI * 2;
-        const r = Math.random() * 80;
-        x = cx + Math.cos(angle) * r;
-        y = cy + Math.sin(angle) * r;
-      } else {
-        x = Math.random() * canvas!.width;
-        y = Math.random() * canvas!.height;
-      }
-
+      const x = Math.random() * canvas!.width;
+      const y = Math.random() * canvas!.height;
       const dx = x - cx;
       const dy = y - cy;
       const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-      const speed = 3 + Math.random() * 5;
 
       return {
         x,
         y,
         radius: Math.random() * 1.5 + 0.5,
         opacity: Math.random() * 0.8 + 0.2,
-        twinkleSpeed: Math.random() * 0.02 + 0.005,
+        twinkleSpeed: Math.random() * 0.003 + 0.001,
         twinkleOffset: Math.random() * Math.PI * 2,
-        vx: (dx / dist) * speed,
-        vy: (dy / dist) * speed,
+        dirX: dx / dist,
+        dirY: dy / dist,
+        speed: 1.5 + Math.random() * 3,
       };
     }
 
@@ -86,22 +75,16 @@ export default function Starfield() {
       warpPhase = "accelerate";
       warpStartTime = performance.now();
 
-      // Boost star count for density
-      const warpExtra = Math.floor(baseCount * 1.5);
-      for (let i = 0; i < warpExtra; i++) {
-        stars.push(randomStar(true));
-      }
-
-      // Recalculate velocities from center for existing stars
+      // Recalculate directions from current center
       const cx = canvas!.width / 2;
       const cy = canvas!.height / 2;
       for (const star of stars) {
         const dx = star.x - cx;
         const dy = star.y - cy;
         const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-        const speed = 3 + Math.random() * 5;
-        star.vx = (dx / dist) * speed;
-        star.vy = (dy / dist) * speed;
+        star.dirX = dx / dist;
+        star.dirY = dy / dist;
+        star.speed = 1.5 + Math.random() * 3;
       }
     }
 
@@ -119,7 +102,7 @@ export default function Starfield() {
           return 1;
         }
         const t = elapsed / ACCEL_DURATION;
-        return t * t * t; // cubic ease in for dramatic ramp
+        return t * t;
       }
 
       if (warpPhase === "cruise") {
@@ -135,8 +118,6 @@ export default function Starfield() {
         if (elapsed >= DECEL_DURATION) {
           warpPhase = "idle";
           warpActive = false;
-          // Trim back to base count
-          stars = stars.slice(0, baseCount);
           return 0;
         }
         const t = 1 - elapsed / DECEL_DURATION;
@@ -149,60 +130,50 @@ export default function Starfield() {
     function draw(time: number) {
       const w = canvas!.width;
       const h = canvas!.height;
-      const cx = w / 2;
-      const cy = h / 2;
 
       ctx!.clearRect(0, 0, w, h);
 
       const warpSpeed = warpActive ? getWarpSpeed(time) : 0;
-      const speedMult = warpSpeed * 20;
 
-      for (let i = stars.length - 1; i >= 0; i--) {
-        const star = stars[i];
-
+      for (const star of stars) {
         if (warpActive && warpSpeed > 0.01) {
-          // Move stars outward from center
-          star.x += star.vx * speedMult;
-          star.y += star.vy * speedMult;
+          // Move star outward slowly
+          star.x += star.dirX * star.speed * warpSpeed * 8;
+          star.y += star.dirY * star.speed * warpSpeed * 8;
 
-          // Respawn stars that leave the screen near center
-          if (star.x < -60 || star.x > w + 60 || star.y < -60 || star.y > h + 60) {
+          // Respawn offscreen stars in a ring around center (like Star Wars)
+          if (star.x < -100 || star.x > w + 100 || star.y < -100 || star.y > h + 100) {
+            const cx = w / 2;
+            const cy = h / 2;
             const angle = Math.random() * Math.PI * 2;
-            const r = Math.random() * 40;
-            star.x = cx + Math.cos(angle) * r;
-            star.y = cy + Math.sin(angle) * r;
-            const dx = star.x - cx;
-            const dy = star.y - cy;
-            const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-            const speed = 3 + Math.random() * 5;
-            star.vx = (dx / dist) * speed;
-            star.vy = (dy / dist) * speed;
+            const ringRadius = 30 + Math.random() * 120;
+            star.x = cx + Math.cos(angle) * ringRadius;
+            star.y = cy + Math.sin(angle) * ringRadius;
+            star.dirX = Math.cos(angle);
+            star.dirY = Math.sin(angle);
+            star.speed = 1.5 + Math.random() * 3;
           }
 
-          // Streak length scales with speed and distance from center
-          const distFromCenter = Math.sqrt((star.x - cx) ** 2 + (star.y - cy) ** 2);
-          const streakLen = warpSpeed * (30 + distFromCenter * 0.15);
-          const angle = Math.atan2(star.vy, star.vx);
-          const tailX = star.x - Math.cos(angle) * streakLen;
-          const tailY = star.y - Math.sin(angle) * streakLen;
+          // Draw streak: line from star in the opposite direction of travel
+          const streakLen = warpSpeed * 60 * star.speed;
+          const tailX = star.x - star.dirX * streakLen;
+          const tailY = star.y - star.dirY * streakLen;
 
-          // Gradient from transparent purple tail to bright white head
           const grad = ctx!.createLinearGradient(tailX, tailY, star.x, star.y);
           const a = star.opacity * warpSpeed;
-          grad.addColorStop(0, `rgba(139, 92, 246, 0)`);
-          grad.addColorStop(0.3, `rgba(167, 139, 250, ${a * 0.3})`);
-          grad.addColorStop(0.7, `rgba(220, 210, 255, ${a * 0.7})`);
-          grad.addColorStop(1, `rgba(255, 255, 255, ${Math.min(a * 1.2, 1)})`);
+          grad.addColorStop(0, `rgba(167, 139, 250, 0)`);
+          grad.addColorStop(0.6, `rgba(200, 190, 255, ${a * 0.4})`);
+          grad.addColorStop(1, `rgba(255, 255, 255, ${Math.min(a, 1)})`);
 
           ctx!.beginPath();
           ctx!.moveTo(tailX, tailY);
           ctx!.lineTo(star.x, star.y);
           ctx!.strokeStyle = grad;
-          ctx!.lineWidth = star.radius * (0.8 + warpSpeed * 1.5);
+          ctx!.lineWidth = star.radius * (0.6 + warpSpeed * 0.8);
           ctx!.lineCap = "round";
           ctx!.stroke();
         } else {
-          // Normal twinkling star
+          // Normal twinkling
           const twinkle =
             Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.3 + 0.7;
           ctx!.beginPath();
@@ -210,16 +181,6 @@ export default function Starfield() {
           ctx!.fillStyle = `rgba(255, 255, 255, ${star.opacity * twinkle})`;
           ctx!.fill();
         }
-      }
-
-      // Subtle radial vignette during warp (bright center fading out)
-      if (warpActive && warpSpeed > 0.3) {
-        const vignette = ctx!.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.6);
-        vignette.addColorStop(0, `rgba(139, 92, 246, ${warpSpeed * 0.04})`);
-        vignette.addColorStop(0.5, `rgba(88, 60, 180, ${warpSpeed * 0.02})`);
-        vignette.addColorStop(1, `rgba(0, 0, 0, 0)`);
-        ctx!.fillStyle = vignette;
-        ctx!.fillRect(0, 0, w, h);
       }
 
       animationId = requestAnimationFrame(draw);
