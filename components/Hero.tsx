@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useRef, useState } from "react";
+import SecretTerminal from "./SecretTerminal";
 
 const SOCIAL_LINKS = [
   {
@@ -22,24 +23,24 @@ const SOCIAL_LINKS = [
 ];
 
 function spawnShootingStars(originX: number, originY: number) {
-  const count = 18;
+  const count = 20;
   for (let i = 0; i < count; i++) {
     const star = document.createElement("div");
     star.className = "shooting-star";
 
-    const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.4;
-    const distance = 200 + Math.random() * 300;
+    const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
+    const distance = 250 + Math.random() * 400;
     const dx = Math.cos(angle) * distance;
     const dy = Math.sin(angle) * distance;
-    const duration = 0.8 + Math.random() * 0.6;
-    const trailAngle = (angle * 180) / Math.PI;
+    const duration = 0.7 + Math.random() * 0.5;
+    const angleDeg = (angle * 180) / Math.PI;
 
     star.style.left = `${originX}px`;
     star.style.top = `${originY}px`;
     star.style.setProperty("--dx", `${dx}px`);
     star.style.setProperty("--dy", `${dy}px`);
     star.style.setProperty("--duration", `${duration}s`);
-    star.style.setProperty("--trail-angle", `${trailAngle}deg`);
+    star.style.setProperty("--angle", `${angleDeg}deg`);
 
     document.body.appendChild(star);
     star.addEventListener("animationend", () => star.remove());
@@ -47,12 +48,32 @@ function spawnShootingStars(originX: number, originY: number) {
 }
 
 export default function Hero() {
+  const [showTerminal, setShowTerminal] = useState(false);
+  const [warpQuote, setWarpQuote] = useState(false);
+  const clickCount = useRef(0);
+
   const handleAdAstra = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
+      clickCount.current += 1;
       const rect = e.currentTarget.getBoundingClientRect();
       const x = rect.left + rect.width / 2;
       const y = rect.top + rect.height / 2;
-      spawnShootingStars(x, y);
+
+      if (clickCount.current === 1) {
+        // First click: shooting stars + terminal
+        spawnShootingStars(x, y);
+        setTimeout(() => setShowTerminal(true), 600);
+      } else if (clickCount.current === 2) {
+        // Second click: Star Wars quote + hyperspace
+        setWarpQuote(true);
+        setTimeout(() => {
+          setWarpQuote(false);
+          window.dispatchEvent(new CustomEvent("warp"));
+        }, 1500);
+      } else {
+        // Subsequent clicks: just fire shooting stars for fun
+        spawnShootingStars(x, y);
+      }
     },
     []
   );
@@ -84,7 +105,7 @@ export default function Hero() {
 
         <button
           onClick={handleAdAstra}
-          className="italic text-sm tracking-[0.15em] text-violet-300/60 mt-6 bg-transparent border-none cursor-default hover:text-violet-300/80 transition-colors duration-500"
+          className="italic text-sm tracking-[0.15em] text-violet-300/60 mt-6 bg-transparent border-none cursor-default hover:text-violet-300/80 transition-colors duration-500 focus:outline-none"
           aria-hidden="true"
         >
           Ad Astra
@@ -119,6 +140,18 @@ export default function Hero() {
           </a>
         </div>
       </div>
+
+      {showTerminal && (
+        <SecretTerminal onClose={() => setShowTerminal(false)} />
+      )}
+
+      {warpQuote && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+          <p className="font-mono text-2xl md:text-4xl text-amber-300/90 tracking-widest animate-pulse">
+            Punch it.
+          </p>
+        </div>
+      )}
     </section>
   );
 }
