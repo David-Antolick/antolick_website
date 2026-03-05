@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>LinkedIn Banner</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1584px;
+    height: 396px;
+    overflow: hidden;
+  }
+
+  .banner {
+    position: relative;
+    width: 1584px;
+    height: 396px;
+    overflow: hidden;
+    /* Rich purple-to-indigo gradient, bright and bold */
+    background: linear-gradient(
+      135deg,
+      #5b21b6 0%,
+      #6d28d9 15%,
+      #7c3aed 30%,
+      #5b5bd6 50%,
+      #6d28d9 65%,
+      #8b5cf6 80%,
+      #7c3aed 100%
+    );
+  }
+
+  /* Lighter wash top-right for depth like the template */
+  .wash-1 {
+    position: absolute;
+    top: -30%;
+    right: -10%;
+    width: 60%;
+    height: 140%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(196, 181, 253, 0.25) 0%,
+      rgba(167, 139, 250, 0.10) 40%,
+      transparent 65%
+    );
+  }
+
+  /* Darker anchor bottom-left */
+  .wash-2 {
+    position: absolute;
+    bottom: -20%;
+    left: -10%;
+    width: 55%;
+    height: 130%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(79, 70, 229, 0.5) 0%,
+      rgba(67, 56, 202, 0.2) 40%,
+      transparent 60%
+    );
+  }
+
+  /* Warm accent - subtle pink/rose like the template has */
+  .wash-3 {
+    position: absolute;
+    bottom: -40%;
+    right: 10%;
+    width: 40%;
+    height: 120%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(219, 180, 255, 0.15) 0%,
+      transparent 50%
+    );
+  }
+
+  /* Film grain overlay for texture */
+  .grain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  /* Quote text */
+  .quote {
+    position: absolute;
+    top: 50%;
+    right: 120px;
+    transform: translateY(-50%);
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 68px;
+    line-height: 1.2;
+    color: white;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+    text-align: right;
+  }
+
+  /* Subtle site URL */
+  .url {
+    position: absolute;
+    bottom: 28px;
+    right: 120px;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .url-line {
+    width: 1px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.5);
+  }
+</style>
+</head>
+<body>
+<div class="banner">
+  <div class="wash-1"></div>
+  <div class="wash-2"></div>
+  <div class="wash-3"></div>
+
+  <!-- Grain texture via SVG filter -->
+  <svg class="grain" viewBox="0 0 1584 396" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noise)"/>
+  </svg>
+
+  <div class="quote">
+    Measure Twice.<br>
+    Ship Once.
+  </div>
+
+  <div class="url">
+    antolick.ai
+    <div class="url-line"></div>
+  </div>
+</div>
+</body>
+</html>
