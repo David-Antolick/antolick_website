@@ -20,11 +20,11 @@ export default function Infrastructure() {
             <ul className="space-y-2 text-sm text-slate-300">
               <li className="flex justify-between">
                 <span className="text-slate-400">GPU</span>
-                <span>2&times; NVIDIA RTX 6000 Ada</span>
+                <span>4&times; NVIDIA RTX 6000</span>
               </li>
               <li className="flex justify-between">
-                <span className="text-slate-400">VRAM</span>
-                <span>96 GB total</span>
+                <span className="text-slate-400">Cluster</span>
+                <span>3-node k3s (mini PCs)</span>
               </li>
               <li className="flex justify-between">
                 <span className="text-slate-400">Use</span>
@@ -48,7 +48,7 @@ export default function Infrastructure() {
               </li>
               <li className="flex justify-between">
                 <span className="text-slate-400">Infra</span>
-                <span>Linux, Nginx, Cloudflare</span>
+                <span>Linux, k3s, Cloudflare</span>
               </li>
             </ul>
           </div>

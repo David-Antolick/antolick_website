@@ -44,8 +44,8 @@ export default function About() {
             Homelab
           </span>
           <span className="text-base text-slate-300">
-            2&times; RTX 6000 Ada (96 GB VRAM) for training, eval, and local
-            inference
+            4&times; RTX 6000 GPUs and a 3-node k3s mini-PC cluster for
+            training, eval, and local inference
           </span>
         </div>
 
