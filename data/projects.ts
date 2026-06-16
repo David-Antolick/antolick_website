@@ -70,7 +70,7 @@ export const projects: Project[] = [
     summary:
       "Production agentic chatbots, PySpark data pipelines, and LLM evaluation harnesses across Johnson & Johnson's pharmaceutical manufacturing and quality organizations, spanning Carvykti CAR-T lentiviral vector manufacturing, IMQ risk intake, and CQ non-conformance signal analytics.",
     oneLiner: "Agentic chatbots, data pipelines & eval harnesses across J&J quality",
-    tags: ["PySpark", "Databricks", "Delta Lake", "LangGraph", "Claude", "GPT-5", "Flowwise/AMP", "Azure", "AWS"],
+    tags: ["PySpark", "Databricks", "Delta Lake", "Claude", "Flowwise/AMP", "Azure", "AWS"],
     sections: [
       {
         title: "Carvykti Manufacturing Data Platform",
@@ -88,14 +88,9 @@ export const projects: Project[] = [
           "A tri-agent conversational system that replaces J&J IMQ's manual risk-register intake with an AI-guided interview: Intake, Assessment, and Wrapup agents under a forward-only router walk a user through risk identification, CEI statement assembly, severity/likelihood scoring against a 5x5 heatmap, and mitigation planning. Grounded in a 57-record risk register (52 embedded for retrieval, 5 held out for evaluation). The live model was chosen empirically, settling on Claude 4.5 Sonnet after GPT-4o-mini and Claude 3.7 hallucinated. A ~1,960-line LLM-as-judge harness scores runs across deterministic behavioral checks, a 15-field weighted comparison, and a 6-dimension rubric. Deployed as a POC and exercised by real IMQ users.",
       },
       {
-        title: "CQ Signal Chatbot Rebuild",
+        title: "CQ Signal Chatbot (Architecture & Discovery)",
         content:
-          "An architecture-complete rebuild of a natural-language Q&A chatbot over non-conformance signal data, replacing a fragile 16-node Flowwise pipeline (which failed by agent proliferation) with a single LangGraph create_react_agent on GPT-5 via J&J's GenAI Platform. A hardened SQL tool layer uses sqlglot to enforce SELECT-only parsing, auto-injects LIMIT, and runs read-only. The defining data insight: the source table is multi-row per non-conformance, so every count must use COUNT(DISTINCT nc_number) — threaded through the system prompt and a deliberately COUNT(*)-failing eval case. Includes a curated Databricks view design and a CI-gated golden-set eval suite.",
-      },
-      {
-        title: "AMP Platform Enablement",
-        content:
-          "Beyond shipping flows, served as the team's day-to-day AMP/Flowwise SME: authored beginner-safe onboarding tutorials, trained colleagues hands-on through their first agent builds, ran an Amazon Bedrock discovery (nine runnable examples covering the Converse API, Flows, tool use, and the Strands + AgentCore managed-agent stack with documented IAM gotchas), and established the canonical common_ai repo standard that new AI projects start from.",
+          "A design-stage rebuild of a natural-language Q&A chatbot over non-conformance signal data — the deliverable is the discovery and architecture, not yet a running system. Covers stakeholder MVP definition, a full data-quality profile of the ~34K-row source table, and a documented migration off a fragile 16-node Flowwise pipeline (which failed by agent proliferation) onto a single planned LangGraph create_react_agent on GPT-5 via J&J's GenAI Platform, fronted by a sqlglot SELECT-only SQL safety layer. The defining data insight: the table is multi-row per non-conformance, so every count must use COUNT(DISTINCT nc_number) — captured in the system-prompt design and a deliberately COUNT(*)-failing eval case.",
       },
     ],
   },
