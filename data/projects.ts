@@ -21,12 +21,12 @@ export const projects: Project[] = [
   {
     id: "climbspeed",
     title: "ClimbSpeed",
-    role: "Independent Engineer",
+    role: "Founder & Sole Engineer",
     dates: "2025 to Present",
     summary:
-      "Production RAG platform helping student pilots prepare for FAA knowledge tests. Custom agentic framework, hybrid retrieval, and eval-driven development, built end-to-end solo.",
-    oneLiner: "99.6% pass rate RAG platform for FAA pilot test prep",
-    tags: ["Python", "FastAPI", "Next.js", "React", "RAG", "PostgreSQL", "Docker"],
+      "Production RAG platform helping student pilots prepare for FAA knowledge tests. Built end-to-end solo, launched April 2026, now live with real student pilots and adopted as curriculum at two flight schools. Custom agentic framework, hybrid retrieval, eval-driven development, a misconception-complete quiz pipeline, and full commercial infrastructure.",
+    oneLiner: "Launched RAG platform for FAA pilot prep, live with student pilots",
+    tags: ["Python", "FastAPI", "Next.js", "React", "RAG", "PostgreSQL", "Chroma", "Stripe", "Docker"],
     link: "https://climbspeed.com",
     linkLabel: "climbspeed.com",
     sections: [
@@ -46,41 +46,56 @@ export const projects: Project[] = [
           "The alpha audit surfaced two categories where LLMs consistently fail: wind triangle math (groundspeed, crosswind components, density altitude) and FAA calendar month conventions for inspection deadlines. More prompting doesn't fix arithmetic, but a calculator does. An alpha user group confirmed these gaps, and the fix was straightforward: 9 aviation math functions + 7 FAA deadline functions, all running in a restricted Python sandbox with 75 unit tests covering every audit failure case.",
       },
       {
+        title: "Misconception-Complete Quiz Pipeline",
+        content:
+          "The live question bank (~4,700 active questions across Private and Instrument exams) is generated offline by a V5 pipeline built on a 41.6K-node concept graph with 69K extracted misconceptions. Each misconception is a complete question spec: the wrong belief becomes the distractor, the correct fact becomes the answer. One LLM call formats the question, then an independent RAG agent must answer it blind with no key, which catches ambiguity before anything reaches students. 70-78% yield at ~45s per question, up from 40-54% in prior versions. Design grounded in six peer-reviewed papers.",
+      },
+      {
         title: "Measured Results",
         content:
           "4.86/5.0 correctness, 99.6% pass rate, 100% citation compliance across 230 benchmarked questions. Streaming reduced time-to-first-token by 48%, and every architectural decision has a before/after measurement. Round-based search limits alone improved quality from 4.73 to 4.82 while cutting end-to-end latency nearly in half.",
+      },
+      {
+        title: "Shipped to Production",
+        content:
+          "Not a prototype: ~29,000 lines of Python and ~11,900 of TypeScript across a 3-container Docker deployment, launched April 2026. Full commercial stack with Stripe Checkout across four subscription tiers, Google OAuth, an admin-reviewed CFI verification workflow, GDPR/CCPA self-service account deletion, and a public interactive demo subdomain behind four layers of bot defense. Live with real student pilots and adopted as curriculum at two flight schools.",
       },
     ],
   },
   {
     id: "jnj",
-    title: "J&J CAR-T AI",
-    role: "AI and Platform Engineer",
+    title: "J&J Manufacturing & Quality AI",
+    role: "AI & Platform Engineer",
     dates: "2025 to Present",
     summary:
-      "Data pipelines and multi-agent chatbots for Carvykti CAR-T cell therapy lentiviral vector manufacturing at Johnson & Johnson.",
-    oneLiner: "AI pipelines and risk intelligence for CAR-T manufacturing at J&J",
-    tags: ["PySpark", "Databricks", "Claude", "Delta Lake", "Azure", "AWS S3"],
+      "Production agentic chatbots, PySpark data pipelines, and LLM evaluation harnesses across Johnson & Johnson's pharmaceutical manufacturing and quality organizations, spanning Carvykti CAR-T lentiviral vector manufacturing, IMQ risk intake, and CQ non-conformance signal analytics.",
+    oneLiner: "Agentic chatbots, data pipelines & eval harnesses across J&J quality",
+    tags: ["PySpark", "Databricks", "Delta Lake", "LangGraph", "Claude", "GPT-5", "Flowwise/AMP", "Azure", "AWS"],
     sections: [
       {
-        title: "Manufacturing Data Pipeline",
+        title: "Carvykti Manufacturing Data Platform",
         content:
-          "Unifies four heterogeneous data sources (material lineage, quality release data, manufacturing process parameters across multiple parquet datasets, and a ground-truth overview) into cohesive outputs powering both an internal portal and Delta Lake tables backing a chatbot's SQL interface. Iterative DFS with memoization builds the full recursive input tree for every material in the genealogy graph.",
+          "A PySpark platform on Databricks for Carvykti CAR-T lentiviral vector manufacturing. Ingests 17 heterogeneous parquet datasets across two manufacturing sites from Azure Blob Storage, normalizes schema conflicts with unionByName, and builds a material genealogy graph via memoized iterative DFS, producing four structured JSON layers plus seven curated Delta Lake tables. A separate ~4,600-line CrispML pipeline turns predictive ML outputs (52 iterations across 6 rounds, 14 CQA outcomes, 8 model types) into radar, scatter-regression, and fishbone visualizations served through a Hugo portal.",
       },
       {
-        title: "Multi-Agent Chatbot",
+        title: "Lentivirus Manufacturing Chatbot",
         content:
-          "Claude-powered routing agent with a custom SQL executor. SELECT-only validation with automatic row limits prevents runaway queries across manufacturing and ML model metric tables. Natural language to SQL over regulated manufacturing data: the chatbot safely queries production batch records while enforcing read-only access controls.",
+          "A multi-agent Flowwise chatbot on J&J's internal AMP platform lets scientists query manufacturing data in natural language. A Claude 3.5 Sonnet routing agent encodes domain knowledge (batch patterns, CQA names, process terminology) and hands off to a custom JavaScript SQL executor against a Databricks SQL warehouse, with SELECT-only allowlisting, automatic LIMIT 1000, conversation memory, and warehouse cold-start handling. An automated eval harness scores chatbot quality across five dimensions with parallel execution and chart reporting.",
       },
       {
-        title: "ML Visualization Pipeline",
+        title: "Phase Future Risk Advisor",
         content:
-          "Large-scale PySpark pipeline consuming predictive ML model outputs across dozens of iterations, multiple rounds, and several model types. Generates interactive radar charts, scatter-regression plots, and fishbone diagrams. Batched Spark operations and S3 path caching reduced jobs by over 90% per iteration. Includes a unified column resolver handling naming inconsistencies across data rounds.",
+          "A tri-agent conversational system that replaces J&J IMQ's manual risk-register intake with an AI-guided interview: Intake, Assessment, and Wrapup agents under a forward-only router walk a user through risk identification, CEI statement assembly, severity/likelihood scoring against a 5x5 heatmap, and mitigation planning. Grounded in a 57-record risk register (52 embedded for retrieval, 5 held out for evaluation). The live model was chosen empirically, settling on Claude 4.5 Sonnet after GPT-4o-mini and Claude 3.7 hallucinated. A ~1,960-line LLM-as-judge harness scores runs across deterministic behavioral checks, a 15-field weighted comparison, and a 6-dimension rubric. Deployed as a POC and exercised by real IMQ users.",
       },
       {
-        title: "Risk Management & Evaluation",
+        title: "CQ Signal Chatbot Rebuild",
         content:
-          "Multi-agent chatbot-as-form system replacing traditional risk intake forms with AI-guided interview flow. RAG-calibrated risk scoring with automated heatmap generation. Separate evaluation harness benchmarks chatbot quality across 5 dimensions with parallel execution and automated reporting.",
+          "An architecture-complete rebuild of a natural-language Q&A chatbot over non-conformance signal data, replacing a fragile 16-node Flowwise pipeline (which failed by agent proliferation) with a single LangGraph create_react_agent on GPT-5 via J&J's GenAI Platform. A hardened SQL tool layer uses sqlglot to enforce SELECT-only parsing, auto-injects LIMIT, and runs read-only. The defining data insight: the source table is multi-row per non-conformance, so every count must use COUNT(DISTINCT nc_number) — threaded through the system prompt and a deliberately COUNT(*)-failing eval case. Includes a curated Databricks view design and a CI-gated golden-set eval suite.",
+      },
+      {
+        title: "AMP Platform Enablement",
+        content:
+          "Beyond shipping flows, served as the team's day-to-day AMP/Flowwise SME: authored beginner-safe onboarding tutorials, trained colleagues hands-on through their first agent builds, ran an Amazon Bedrock discovery (nine runnable examples covering the Converse API, Flows, tool use, and the Strands + AgentCore managed-agent stack with documented IAM gotchas), and established the canonical common_ai repo standard that new AI projects start from.",
       },
     ],
   },
@@ -88,33 +103,33 @@ export const projects: Project[] = [
     id: "rex",
     title: "REX Voice Assistant",
     role: "Personal Project",
-    dates: "2024 to 2025",
+    dates: "2025 to Present",
     summary:
-      "Fully local streaming voice assistant with sub-second perceived latency for hands-free desktop control. Not a demo: a shipped, installable, configurable tool.",
-    oneLiner: "Sub-second local voice assistant, no cloud, no latency",
-    tags: ["Python", "Whisper", "FastAPI", "CUDA", "Silero VAD", "asyncio"],
+      "Local-first streaming voice assistant for hands-free desktop control. Wake-word gated, on-device speech recognition, and a slot-routed action registry that dispatches deterministic voice commands to real desktop apps. Shipped as an installable PyPI tool with a PySide6 tray UI.",
+    oneLiner: "Wake-word desktop voice assistant, local-first, shipped on PyPI",
+    tags: ["Python", "faster-whisper", "openWakeWord", "Silero VAD", "PySide6", "asyncio", "CUDA"],
     link: "https://github.com/David-Antolick/REX_voice_assistant",
     linkLabel: "GitHub",
     sections: [
       {
-        title: "The Differentiator",
+        title: "Declarative Action Registry",
         content:
-          "Most voice assistant tutorials transcribe after the user stops speaking, have no latency awareness, and aren't packaged or configurable. REX's low-latency mode transcribes partial audio buffers periodically and checks partial transcripts for safe early command matches, executing immediately and clearing the buffer. This reduces perceived latency significantly while consciously controlling the precision/speed tradeoff.",
+          "The core architectural rework: every command is an @action-decorated wrapper that registers a frozen ActionSpec at import time, carrying its regex patterns, backend, transport, and planner-ready metadata. Slot-based routing means at most one backend owns each mutually-exclusive category (one music source active at a time), and the matcher recompiles its dispatch table on a backend swap so only active patterns are ever matched. Adding an integration is a pure addition — one new file plus one import line, with the matcher and dispatcher untouched. ~44 actions across six backends.",
       },
       {
-        title: "Why These Tools",
+        title: "Wake Word & Early-Match Latency",
         content:
-          "Every choice optimizes for local-first speed. Silero VAD over WebRTC VAD for better utterance boundary detection. faster-whisper with CTranslate2 over stock Whisper for 4x inference speedup. Regex routing over an intent classifier because command sets are finite and deterministic matching eliminates false positives. No LLM inference loops, which avoids hallucination, latency, and cloud dependency entirely.",
+          "REX is wake-gated by default with a custom hey_rex ONNX model (openWakeWord, auto-downloaded from Hugging Face). Its default low-latency mode re-transcribes the growing speech buffer every ~200ms and fires a command the moment a safe match appears, then clears the buffer. Variable-argument or ambiguous commands carry a no_early_match flag and wait for the full utterance, so an early fragment can never execute the wrong value. The policy is declared per command on its spec, not hardcoded in the VAD.",
       },
       {
-        title: "Runs on a Laptop",
+        title: "Real Desktop Integrations",
         content:
-          "The entire pipeline (VAD, transcription, intent matching, command execution) runs on consumer hardware with no cloud calls. CUDA acceleration is optional, not required. Explicit DLL path handling for Windows ensures cuDNN/cuBLAS discoverability without manual environment setup. Packaged as an installable CLI tool with layered config (defaults, user overrides, env vars) and keyring-based secret storage.",
+          "Each backend is a real desktop integration with its own auth and error model: YouTube Music Desktop (local companion server), Spotify (Web API + OAuth + Connect), SteelSeries GG Moments clipping (GameSense), and layered app launch/close that resolves install locations via hardcoded paths, Start-menu shortcut scanning, and the Windows installed-apps catalog. The most involved is REX's own YTVD fork — a custom Electron build hosting YouTube video and music in one window — driven by voice across new playback and video companion-server namespaces.",
       },
       {
-        title: "Real System Integrations",
+        title: "Engineering Discipline",
         content:
-          "Spotify (full OAuth flow), YouTube Music Desktop (companion API), SteelSeries GG Moments (hotkey simulation for game clip capture). FastAPI metrics dashboard with WebSocket streaming for latency and match-rate tracking. Two operating modes: standard (VAD end-of-speech, high precision) and low-latency (early intent detection on partials, faster response).",
+          "A streaming asyncio pipeline with bounded-queue backpressure, blocking Whisper/VAD inference offloaded to executors, and per-session observability (match rate, suppressed counter, p50/p95 end-to-end latency, GPU telemetry via NVML). A CI-blocking test gate asserts registry correctness and hard microsecond ceilings on the dispatch hot path. Hard-won Windows lessons are encoded in code: coercing localhost to 127.0.0.1 to dodge a ~2s IPv6 fallback, and explicit cuDNN/cuBLAS DLL discovery with CPU fallback. Shipped on PyPI with a setup wizard, keyring secrets, and a PySide6 system-tray UI.",
       },
     ],
   },

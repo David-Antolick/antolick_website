@@ -19,7 +19,7 @@ export default function About() {
             Independently
           </span>
           <span className="text-base text-slate-300">
-            Built and launched{" "}
+            Built, launched, and operate{" "}
             <a
               href="https://climbspeed.com"
               target="_blank"
@@ -28,7 +28,8 @@ export default function About() {
             >
               ClimbSpeed
             </a>
-            , a production RAG platform for aviation
+            , a production RAG platform for aviation now live with student
+            pilots
           </span>
 
           <span className="font-mono text-sm text-violet-400 text-right">
