@@ -8,47 +8,49 @@ export default function Infrastructure() {
         <hr className="separator mb-6" />
 
         <p className="text-base text-slate-300 mb-8 leading-relaxed">
-          Everything on this site was built, trained, and evaluated on personal
-          hardware. No managed ML platforms, no rented GPU time for development.
+          Everything on this site is built and self-hosted on personal
+          hardware &mdash; a k3s cluster I run and operate myself, plus a
+          dedicated GPU host for model inference. No managed platforms, no
+          rented cloud.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="p-5 rounded-lg border border-[#1e2140] bg-[#0d1025]/30">
             <h3 className="font-mono text-sm tracking-widest uppercase text-violet-400 mb-4">
-              Compute
+              Cluster
             </h3>
             <ul className="space-y-2 text-sm text-slate-300">
               <li className="flex justify-between">
-                <span className="text-slate-400">GPU</span>
-                <span>4&times; NVIDIA RTX 6000</span>
+                <span className="text-slate-400">Nodes</span>
+                <span>3&times; Minisforum MS-A2 (AMD)</span>
               </li>
               <li className="flex justify-between">
-                <span className="text-slate-400">Cluster</span>
-                <span>3-node k3s (mini PCs)</span>
+                <span className="text-slate-400">Orchestration</span>
+                <span>k3s HA, Argo CD</span>
               </li>
               <li className="flex justify-between">
-                <span className="text-slate-400">Use</span>
-                <span>Training, eval, local inference</span>
+                <span className="text-slate-400">Storage</span>
+                <span>Longhorn (2TB M.2 + 3.84TB U.2)</span>
               </li>
             </ul>
           </div>
 
           <div className="p-5 rounded-lg border border-[#1e2140] bg-[#0d1025]/30">
             <h3 className="font-mono text-sm tracking-widest uppercase text-violet-400 mb-4">
-              Stack
+              Inference
             </h3>
             <ul className="space-y-2 text-sm text-slate-300">
               <li className="flex justify-between">
-                <span className="text-slate-400">Runtime</span>
-                <span>Docker, CUDA 12.x</span>
+                <span className="text-slate-400">GPU</span>
+                <span>4&times; NVIDIA RTX PRO 6000 (Blackwell)</span>
               </li>
               <li className="flex justify-between">
-                <span className="text-slate-400">ML</span>
-                <span>PyTorch, vLLM, Transformers</span>
+                <span className="text-slate-400">Serving</span>
+                <span>vLLM</span>
               </li>
               <li className="flex justify-between">
-                <span className="text-slate-400">Infra</span>
-                <span>Linux, k3s, Cloudflare</span>
+                <span className="text-slate-400">Model</span>
+                <span>MiniMax M3.0</span>
               </li>
             </ul>
           </div>
