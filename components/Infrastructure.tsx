@@ -42,7 +42,7 @@ export default function Infrastructure() {
             <ul className="space-y-2 text-sm text-slate-300">
               <li className="flex justify-between">
                 <span className="text-slate-400">GPU</span>
-                <span>4&times; NVIDIA RTX 6000</span>
+                <span>4&times; NVIDIA RTX PRO 6000 (Blackwell)</span>
               </li>
               <li className="flex justify-between">
                 <span className="text-slate-400">Serving</span>
