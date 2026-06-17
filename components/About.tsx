@@ -44,8 +44,9 @@ export default function About() {
             Homelab
           </span>
           <span className="text-base text-slate-300">
-            4&times; RTX 6000 GPUs and a 3-node k3s mini-PC cluster for
-            training, eval, and local inference
+            3-node k3s HA cluster on Minisforum MS-A2 (AMD) mini-PCs,
+            GitOps-managed with Argo CD, plus a dedicated 4&times; RTX 6000
+            host running vLLM (currently MiniMax M3.0)
           </span>
         </div>
 
